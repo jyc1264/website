@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  photo: CollectionEntry<"photos">;
+  index: number;
+}
+
+const { photo, index } = Astro.props;
+const figureClass = [
+  "group overflow-hidden border border-[#fff8ea]/20 bg-[#3b3029]/62 backdrop-blur-sm",
+].filter(Boolean).join(" ");
+---
+
+<figure class={figureClass}>
+  <button
+    type="button"
+    data-gallery-open={index}
+    class="block w-full cursor-zoom-in text-left"
+    aria-label={`Open ${photo.data.title} in full-resolution carousel`}
+  >
+    <Image
+      src={photo.data.imageSrc}
+      alt={photo.data.title}
+      width={photo.data.imageWidth}
+      height={photo.data.imageHeight}
+      loading="lazy"
+      decoding="async"
+      class="h-auto w-full transition duration-500 group-hover:scale-[1.015]"
+    />
+  </button>
+  <figcaption class="border-t border-[#fff8ea]/20 bg-[#3b3029]/82 p-4">
+    <div class="flex flex-col gap-2">
+      <div class="flex flex-wrap items-start justify-between gap-3">
+        <h2 class="text-lg font-medium leading-tight text-[#fffaf0]">{photo.data.title}</h2>
+        <span class="font-mono text-[0.68rem] text-[#d9c8ad]">{photo.data.cameraSettings}</span>
+      </div>
+      <p class="text-sm leading-6 text-[#e8d9c4]">{photo.data.description}</p>
+    </div>
+  </figcaption>
+</figure>

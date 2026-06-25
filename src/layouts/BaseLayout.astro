@@ -1,0 +1,79 @@
+---
+import "@styles/global.css";
+
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = "Machine Learning Engineer and Photographer portfolio.",
+  ogImage = "/images/DSCF2001.JPG",
+} = Astro.props;
+
+const siteName = "John Choi";
+const pageTitle = title === siteName ? title : `${title} | ${siteName}`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://example.com").toString();
+
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/blog/", label: "Writing" },
+  { href: "/gallery/", label: "Photography" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#725d4e" />
+  </head>
+  <body class="antialiased">
+    <div class="mx-auto flex min-h-screen w-full max-w-[92rem] flex-col px-5 sm:px-8 lg:px-12">
+      <header class="sticky top-0 z-30 -mx-5 border-b border-[#fff8ea]/20 bg-[#4e4037]/78 px-5 py-4 backdrop-blur sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12">
+        <nav class="mx-auto flex max-w-content items-center justify-between gap-5" aria-label="Primary">
+          <a href="/" class="font-mono text-sm text-[#fff8ea] transition hover:text-white">
+            JC
+          </a>
+          <div class="flex items-center gap-1 rounded-full border border-[#fff8ea]/22 bg-[#3b3029]/55 p-1">
+            {navItems.map((item) => (
+              <a
+                href={item.href}
+                class="rounded-full px-3 py-1.5 font-mono text-xs text-[#e8d9c4] transition hover:bg-[#fff8ea] hover:text-[#4e4037] sm:px-4"
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </nav>
+      </header>
+
+      <main class="mx-auto w-full max-w-content flex-1">
+        <slot />
+      </main>
+
+      <footer class="mx-auto w-full max-w-content border-t border-[#fff8ea]/20 py-10">
+        <div class="flex flex-col gap-4 text-sm text-[#e8d9c4] sm:flex-row sm:items-center sm:justify-between">
+          <p class="font-mono">© {new Date().getFullYear()} {siteName}</p>
+          <div class="flex flex-wrap gap-x-4 gap-y-2 font-mono">
+            <a class="transition hover:text-white" href="mailto:jyc1261@outlook.com">Email</a>
+            <a class="transition hover:text-white" href="https://www.linkedin.com/in/john-choi-24a83a149/" rel="noreferrer">LinkedIn</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

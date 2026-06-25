@@ -1,0 +1,138 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import GalleryLightbox from "@components/GalleryLightbox.astro";
+import GalleryImage from "@components/GalleryImage.astro";
+
+type PhotoEntry = CollectionEntry<"photos">;
+
+interface TripGroup {
+  title: string;
+  slug: string;
+  photos: PhotoEntry[];
+}
+
+const knownTripOrder = ["Korea - Early Summer 2026", "France & Italy - Early Summer 2025"];
+
+const photos = await getCollection("photos");
+const photosByTrip = new Map<string, PhotoEntry[]>();
+
+for (const photo of photos) {
+  const tripPhotos = photosByTrip.get(photo.data.trip) ?? [];
+  tripPhotos.push(photo);
+  photosByTrip.set(photo.data.trip, tripPhotos);
+}
+
+const latestShotDateForTrip = (trip: string) =>
+  Math.max(...(photosByTrip.get(trip) ?? []).map((photo) => photo.data.shotDate.valueOf()));
+
+const extraTripTitles = Array.from(photosByTrip.keys())
+  .filter((trip) => !knownTripOrder.includes(trip))
+  .sort((a, b) => latestShotDateForTrip(b) - latestShotDateForTrip(a));
+
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+const dateFormatter = new Intl.DateTimeFormat("en", {
+  month: "short",
+  year: "numeric",
+});
+
+const formatDateRange = (groupPhotos: PhotoEntry[]) => {
+  const sortedDates = [...groupPhotos]
+    .map((photo) => photo.data.shotDate)
+    .sort((a, b) => a.valueOf() - b.valueOf());
+  const startDate = sortedDates[0];
+  const endDate = sortedDates.at(-1);
+
+  if (!startDate || !endDate) {
+    return "";
+  }
+
+  const start = dateFormatter.format(startDate);
+  const end = dateFormatter.format(endDate);
+
+  return start === end ? start : `${start} - ${end}`;
+};
+
+const tripGroups: TripGroup[] = [
+  ...knownTripOrder.filter((trip) => photosByTrip.has(trip)),
+  ...extraTripTitles,
+].map((trip) => ({
+  title: trip,
+  slug: slugify(trip),
+  photos: [...(photosByTrip.get(trip) ?? [])].sort(
+    (a, b) => b.data.shotDate.valueOf() - a.data.shotDate.valueOf(),
+  ),
+}));
+
+const carouselPhotos = tripGroups.flatMap((group) => group.photos);
+const photoIndexById = new Map(carouselPhotos.map((photo, index) => [photo.id, index]));
+---
+
+<BaseLayout title="Photography" description="Photography portfolio by John Choi.">
+  <section class="grid gap-10 py-16 sm:py-20 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end">
+    <div>
+      <p class="meta-label font-mono text-xs text-[#d9c8ad]">Photography</p>
+      <h1 class="mt-5 max-w-4xl text-5xl font-medium leading-tight text-[#fffaf0] sm:text-7xl">
+        <span class="block">Snapshots of my life,</span>
+        <span class="block">aesthetic things,</span>
+        <span class="block">and things I love.</span>
+      </h1>
+      <p class="mt-8 max-w-2xl text-xl leading-9 text-[#e8d9c4]">
+        Used to shoot on a Sony a6700 with a Sigma 18-50mm f/2.8 lens but now I shoot on a FujiFilm x100vi. Playing around with some Film Recipes.
+      </p>
+    </div>
+    <nav class="w-full border-y border-[#fff8ea]/18 lg:justify-self-end lg:text-right" aria-label="Photography trips">
+      {tripGroups.map((group, index) => (
+        <a
+          class="group grid grid-cols-[1.75rem_minmax(0,1fr)_1rem] items-center gap-3 border-b border-[#fff8ea]/14 py-2.5 font-mono text-xs transition last:border-b-0 hover:bg-[#fff8ea]/8 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#fff8ea]"
+          href={`#${group.slug}`}
+        >
+          <span class="text-left text-[0.68rem] text-[#d9c8ad]/65">{String(index + 1).padStart(2, "0")}</span>
+          <span class="min-w-0">
+            <span class="block truncate font-serif text-base leading-tight text-[#fffaf0] transition group-hover:text-white">
+              {group.title}
+            </span>
+            <span class="mt-1 block text-[0.68rem] text-[#d9c8ad]">
+              {group.photos.length} frames · {formatDateRange(group.photos)}
+            </span>
+          </span>
+          <span class="text-right text-[#d9c8ad] transition group-hover:translate-y-0.5 group-hover:text-white" aria-hidden="true">
+            ↓
+          </span>
+        </a>
+      ))}
+    </nav>
+  </section>
+
+  <section class="section-rule py-12">
+    <div class="space-y-16">
+      {tripGroups.map((group) => (
+        <section id={group.slug} class="scroll-mt-24 space-y-6" aria-labelledby={`${group.slug}-title`}>
+          <div class="flex flex-col gap-3 border-b border-[#fff8ea]/20 pb-5 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p class="meta-label font-mono text-[0.68rem] text-[#d9c8ad]">Trip</p>
+              <h2 id={`${group.slug}-title`} class="mt-2 text-3xl font-medium leading-tight text-[#fffaf0] sm:text-4xl">
+                {group.title}
+              </h2>
+            </div>
+            <p class="font-mono text-xs text-[#d9c8ad]">
+              {group.photos.length} frames · {formatDateRange(group.photos)}
+            </p>
+          </div>
+          <div class="grid grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {group.photos.map((photo) => (
+              <GalleryImage photo={photo} index={photoIndexById.get(photo.id) ?? 0} />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </section>
+  <GalleryLightbox photos={carouselPhotos} />
+</BaseLayout>

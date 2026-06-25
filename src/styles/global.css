@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    background: #725d4e;
+  }
+
+  html {
+    background: #725d4e;
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-height: 100vh;
+    background:
+      linear-gradient(rgba(255, 248, 234, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 248, 234, 0.04) 1px, transparent 1px),
+      linear-gradient(135deg, #3f342d 0%, #725d4e 46%, #a89475 100%);
+    background-size: 64px 64px, 64px 64px, cover;
+    background-attachment: fixed;
+    color: #fafafa;
+    font-family: Georgia, Cambria, "Times New Roman", serif;
+  }
+
+  ::selection {
+    background: #fff8ea;
+    color: #4e4037;
+  }
+
+  a {
+    text-underline-offset: 0.24em;
+  }
+}
+
+@layer components {
+  .section-rule {
+    border-top: 1px solid rgb(255 248 234 / 0.18);
+  }
+
+  .meta-label {
+    font-family:
+      "JetBrains Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas,
+      monospace;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .prose-portfolio {
+    color: rgb(239 227 206);
+    font-family: Georgia, Cambria, "Times New Roman", serif;
+    font-size: 1.0625rem;
+    line-height: 1.85;
+  }
+
+  .prose-portfolio :where(h1, h2, h3) {
+    color: rgb(255 250 240);
+    font-family: Georgia, Cambria, "Times New Roman", serif;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  .prose-portfolio :where(h2) {
+    margin-top: 2.5rem;
+    font-size: 1.75rem;
+  }
+
+  .prose-portfolio :where(h3) {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+  }
+
+  .prose-portfolio :where(p, ul, ol, pre, blockquote) {
+    margin-top: 1.25rem;
+  }
+
+  .prose-portfolio :where(a) {
+    color: rgb(255 250 240);
+    text-decoration: underline;
+  }
+
+  .prose-portfolio :where(code) {
+    border: 1px solid rgb(255 248 234 / 0.2);
+    border-radius: 0.375rem;
+    background: rgb(59 48 41 / 0.78);
+    color: rgb(255 250 240);
+    font-family:
+      "JetBrains Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas,
+      monospace;
+    font-size: 0.875em;
+    padding: 0.1rem 0.35rem;
+  }
+
+  .prose-portfolio :where(pre) {
+    overflow-x: auto;
+    border: 1px solid rgb(255 248 234 / 0.2);
+    border-radius: 0.5rem;
+    background: rgb(59 48 41 / 0.86) !important;
+    padding: 1rem;
+  }
+
+  .prose-portfolio :where(pre code) {
+    border: 0;
+    background: transparent;
+    padding: 0;
+  }
+}

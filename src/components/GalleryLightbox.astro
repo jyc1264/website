@@ -1,0 +1,191 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  photos: CollectionEntry<"photos">[];
+}
+
+const { photos } = Astro.props;
+const carouselPhotos = photos.map((photo) => ({
+  title: photo.data.title,
+  description: photo.data.description,
+  metadata: photo.data.cameraSettings,
+  imageSrc: photo.data.imageSrc,
+  width: photo.data.imageWidth,
+  height: photo.data.imageHeight,
+}));
+---
+
+<dialog
+  id="gallery-lightbox"
+  class="fixed inset-0 z-50 h-[100dvh] w-screen max-w-none overflow-hidden bg-transparent p-0 text-[#fffaf0] backdrop:bg-[#1b1511]/92 backdrop:backdrop-blur-sm"
+  aria-labelledby="gallery-lightbox-title"
+>
+  <div class="grid h-full grid-rows-[auto_1fr_auto] bg-[#201812]/95">
+    <header class="flex items-center justify-between border-b border-[#fff8ea]/16 px-4 py-3 sm:px-6">
+      <p class="font-mono text-xs uppercase tracking-[0.22em] text-[#d9c8ad]">
+        <span id="gallery-lightbox-count">01 / 01</span>
+      </p>
+      <button
+        type="button"
+        data-gallery-close
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#fff8ea]/24 bg-[#fff8ea]/8 font-mono text-lg text-[#fffaf0] transition hover:bg-[#fff8ea]/16"
+        aria-label="Close full-resolution carousel"
+      >
+        ×
+      </button>
+    </header>
+
+    <div class="grid min-h-0 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div class="relative flex min-h-0 items-center justify-center px-4 py-4 sm:px-8">
+        <button
+          type="button"
+          data-gallery-prev
+          class="absolute left-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[#fff8ea]/24 bg-[#201812]/72 font-mono text-2xl text-[#fffaf0] shadow-xl backdrop-blur transition hover:bg-[#fff8ea]/16 sm:left-5"
+          aria-label="View previous image"
+        >
+          ‹
+        </button>
+        <img
+          id="gallery-lightbox-image"
+          src=""
+          alt=""
+          width="1"
+          height="1"
+          decoding="async"
+          class="max-h-full max-w-full object-contain shadow-2xl"
+        />
+        <button
+          type="button"
+          data-gallery-next
+          class="absolute right-3 top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[#fff8ea]/24 bg-[#201812]/72 font-mono text-2xl text-[#fffaf0] shadow-xl backdrop-blur transition hover:bg-[#fff8ea]/16 sm:right-5"
+          aria-label="View next image"
+        >
+          ›
+        </button>
+      </div>
+
+      <aside class="border-t border-[#fff8ea]/16 bg-[#3b3029]/72 p-5 lg:border-l lg:border-t-0 lg:p-6">
+        <p class="font-mono text-xs uppercase tracking-[0.22em] text-[#d9c8ad]">Frame</p>
+        <h2 id="gallery-lightbox-title" class="mt-4 text-3xl font-medium leading-tight text-[#fffaf0]">
+          Title
+        </h2>
+        <p id="gallery-lightbox-description" class="mt-4 text-base leading-7 text-[#e8d9c4]"></p>
+        <p id="gallery-lightbox-metadata" class="mt-8 border-t border-[#fff8ea]/16 pt-4 font-mono text-sm text-[#d9c8ad]"></p>
+      </aside>
+    </div>
+
+    <footer class="flex items-center justify-between gap-4 border-t border-[#fff8ea]/16 px-4 py-3 font-mono text-xs text-[#d9c8ad] sm:px-6">
+      <span>Use arrow keys to move</span>
+      <span>Esc to close</span>
+    </footer>
+  </div>
+</dialog>
+
+<script is:inline id="gallery-lightbox-data" type="application/json" set:html={JSON.stringify(carouselPhotos)} />
+
+<script>
+  interface CarouselPhoto {
+    title: string;
+    description: string;
+    metadata: string;
+    imageSrc: string;
+    width: number;
+    height: number;
+  }
+
+  const dataElement = document.getElementById("gallery-lightbox-data");
+  const dialog = document.getElementById("gallery-lightbox") as HTMLDialogElement | null;
+  const image = document.getElementById("gallery-lightbox-image") as HTMLImageElement | null;
+  const title = document.getElementById("gallery-lightbox-title");
+  const description = document.getElementById("gallery-lightbox-description");
+  const metadata = document.getElementById("gallery-lightbox-metadata");
+  const count = document.getElementById("gallery-lightbox-count");
+  const openButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-gallery-open]"));
+  const closeButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-gallery-close]"));
+  const previousButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-gallery-prev]"));
+  const nextButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-gallery-next]"));
+
+  const photos = JSON.parse(dataElement?.textContent ?? "[]") as CarouselPhoto[];
+  let activeIndex = 0;
+
+  const formatCount = (index: number) =>
+    `${String(index + 1).padStart(2, "0")} / ${String(photos.length).padStart(2, "0")}`;
+
+  const renderPhoto = (index: number) => {
+    const photo = photos[index];
+
+    if (!photo || !image || !title || !description || !metadata || !count) {
+      return;
+    }
+
+    activeIndex = index;
+    image.src = photo.imageSrc;
+    image.alt = photo.title;
+    image.width = photo.width;
+    image.height = photo.height;
+    title.textContent = photo.title;
+    description.textContent = photo.description;
+    metadata.textContent = photo.metadata;
+    count.textContent = formatCount(index);
+  };
+
+  const moveBy = (offset: number) => {
+    if (photos.length === 0) {
+      return;
+    }
+
+    renderPhoto((activeIndex + offset + photos.length) % photos.length);
+  };
+
+  const openCarousel = (index: number) => {
+    if (!dialog || photos.length === 0) {
+      return;
+    }
+
+    renderPhoto(index);
+
+    if (!dialog.open) {
+      dialog.showModal();
+    }
+  };
+
+  openButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.galleryOpen ?? 0);
+      openCarousel(Number.isFinite(index) ? index : 0);
+    });
+  });
+
+  closeButtons.forEach((button) => {
+    button.addEventListener("click", () => dialog?.close());
+  });
+
+  previousButtons.forEach((button) => {
+    button.addEventListener("click", () => moveBy(-1));
+  });
+
+  nextButtons.forEach((button) => {
+    button.addEventListener("click", () => moveBy(1));
+  });
+
+  dialog?.addEventListener("click", (event) => {
+    if (event.target === dialog) {
+      dialog.close();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!dialog?.open) {
+      return;
+    }
+
+    if (event.key === "ArrowLeft") {
+      moveBy(-1);
+    }
+
+    if (event.key === "ArrowRight") {
+      moveBy(1);
+    }
+  });
+</script>
