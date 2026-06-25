@@ -26,7 +26,17 @@ const formattedDate = new Intl.DateTimeFormat("en", {
 
 <BaseLayout title={post.data.title} description={post.data.description}>
   <article class="mx-auto max-w-3xl py-16 sm:py-20">
-    <a class="font-mono text-xs text-[#d9c8ad] underline transition hover:text-white" href="/blog/">Blog</a>
+    <a
+      class="inline-flex items-center gap-2 rounded-full border border-[#fff8ea]/20 bg-[#3b3029]/45 px-3 py-1.5 font-mono text-xs text-[#e8d9c4] transition hover:border-[#fff8ea]/45 hover:bg-[#fff8ea] hover:text-[#4e4037] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#fff8ea]"
+      href="/blog/"
+      aria-label="Back to blog catalog"
+    >
+      <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M9.5 3.75 5.25 8l4.25 4.25" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M5.75 8h5.5" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+      </svg>
+      Back to blog
+    </a>
     <header class="mt-8 border-b border-[#fff8ea]/20 pb-10">
       <p class="meta-label font-mono text-xs text-[#d9c8ad]">Tech / ML · {formattedDate}</p>
       <h1 class="mt-5 text-5xl font-medium leading-tight text-[#fffaf0] sm:text-6xl">{post.data.title}</h1>
