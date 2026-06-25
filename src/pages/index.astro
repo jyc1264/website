@@ -1,50 +1,46 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import Card from "@components/Card.astro";
 import TimelineItem, { type CareerMilestone } from "@components/TimelineItem.astro";
-
-const formatDate = (date: Date) =>
-  new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }).format(date);
 
 const milestones: CareerMilestone[] = [
   {
     period: "Apr 2025 - Present",
     company: "Reddit, Inc.",
     role: "Senior Machine Learning Engineer",
-    description:
-      "ML Infra work across ML Platform and ML Search Infrastructure.",
+    description: [
+      "Delivered Milvus-backed semantic retrieval on Reddit Feeds, improving new-user activation and retention (~1M+ DAU) while meeting strict latency and availability SLOs.",
+      "Launched SEO search experiences in collaboration with 3 teams, driving an increase of ~500k DAU.",
+      "Reduced ML server costs ~$1.5M/year with a distributed caching solution and improved search resilience with adaptive traffic shedding across high-QPS endpoints.",
+    ],
     focus: ["Vector DB Infrastructure", "Embedding Retrieval Optimization"],
   },
   {
     period: "Aug 2022 - Apr 2025",
     company: "Reddit, Inc.",
     role: "Software Engineer",
-    description:
-      "Built platform and product systems for Payments Platform and Anti-Fraud.",
+    description: [
+      "Led creator payouts and reconciliation, distributing multi-million-dollar payouts across 30+ countries and 25+ currencies.",
+      "Built payment webhook and verification services for Apple, Google, and Stripe notifications across purchase, refund, fraud, and reconciliation flows.",
+      "Built automated E2E testing suite across Payments critical paths, catching release-blocking regressions before production launch.",
+    ],
     focus: ["Blockchain", "Kubernetes", "Vendor KYC"],
   },
   {
     period: "Aug 2021 - Aug 2022",
     company: "Niantic, Inc.",
     role: "Software Engineer",
-    description:
-      "Worked on Pokemon Go Infrastructure as a software engineer.",
+    description: [
+      "Rebuilt Pokemon Go quest and rewards flows, reducing high-traffic quest page load time by 25%.",
+      "Shipped guest-account onboarding that improved post-launch player retention by 30%.",
+      "Partnered with AR/R&D teams on Pokestop 3D scan uploads to support AR mapping platform development.",
+    ],
     focus: ["GCS", "Unity Performance Tuning", "GeoSpatial Modeling"],
   },
 ];
-
-const techPosts = (await getCollection("tech"))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 2);
 ---
 
 <BaseLayout title="John Choi" description="Machine Learning Engineer and Photographer portfolio.">
-  <section class="grid min-h-[calc(100vh-4rem)] items-end gap-10 py-16 sm:py-20 lg:grid-cols-[1.2fr_0.8fr]">
+  <section class="relative grid min-h-[calc(100vh-4rem)] items-end gap-10 py-16 sm:py-20 lg:grid-cols-[1.2fr_0.8fr]">
     <div>
       <p class="meta-label font-mono text-xs text-[#d9c8ad]">Machine Learning Engineer & Photographer-Larper</p>
       <h1 class="mt-5 flex max-w-5xl flex-wrap items-baseline gap-x-5 gap-y-2 text-6xl font-medium leading-[0.95] tracking-normal text-[#fffaf0] sm:text-7xl lg:text-8xl">
@@ -66,9 +62,20 @@ const techPosts = (await getCollection("tech"))
         </div>
       </div>
     </aside>
+    <a
+      href="#experience"
+      data-scroll-cue
+      class="absolute bottom-6 left-1/2 inline-flex -translate-x-1/2 items-center justify-center px-4 py-3 text-[#fff8ea]/70 transition duration-500 hover:text-[#fff8ea] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[#fff8ea]"
+    >
+      <span class="sr-only">Scroll to experience</span>
+      <svg class="h-10 w-10 animate-bounce drop-shadow-[0_0_18px_rgba(255,248,234,0.18)]" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M9 11.5 16 18l7-6.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M9 18 16 24.5 23 18" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" opacity="0.62"></path>
+      </svg>
+    </a>
   </section>
 
-  <section class="section-rule grid gap-10 py-16 lg:grid-cols-[0.45fr_1fr]">
+  <section id="experience" class="section-rule grid scroll-mt-24 gap-10 py-16 lg:grid-cols-[0.45fr_1fr]">
     <div>
       <p class="meta-label font-mono text-xs text-[#d9c8ad]">Experience</p>
       <h2 class="mt-4 text-4xl font-medium leading-tight text-[#fffaf0]">Where I worked, what I built, and when.</h2>
@@ -80,25 +87,21 @@ const techPosts = (await getCollection("tech"))
     </ol>
   </section>
 
-  <section class="section-rule py-16">
-    <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        <p class="meta-label font-mono text-xs text-[#d9c8ad]">Recent Writing</p>
-        <h2 class="mt-4 text-4xl font-medium text-[#fffaf0]">Technical notes</h2>
-      </div>
-      <a class="font-mono text-sm text-[#e8d9c4] underline transition hover:text-white" href="/blog/">All writing</a>
-    </div>
-    <div class="grid gap-4 md:grid-cols-2">
-      {techPosts.map((post) => (
-        <Card
-          href={`/blog/tech/${post.id}/`}
-          eyebrow="Tech / ML"
-          title={post.data.title}
-          description={post.data.description}
-          meta={formatDate(post.data.pubDate)}
-          tags={post.data.tags}
-        />
-      ))}
-    </div>
-  </section>
+  <script is:inline>
+    const cue = document.querySelector("[data-scroll-cue]");
+
+    if (cue instanceof HTMLElement) {
+      const hideCue = () => {
+        cue.classList.add("translate-y-2", "opacity-0", "pointer-events-none");
+      };
+
+      if (window.scrollY > 8) {
+        hideCue();
+      }
+
+      ["scroll", "wheel", "touchstart", "keydown", "click"].forEach((eventName) => {
+        window.addEventListener(eventName, hideCue, { once: true, passive: true });
+      });
+    }
+  </script>
 </BaseLayout>
