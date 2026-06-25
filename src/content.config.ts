@@ -12,15 +12,6 @@ const tech = defineCollection({
   }),
 });
 
-const personal = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/personal" }),
-  schema: z.object({
-    title: z.string(),
-    pubDate: z.coerce.date(),
-    description: z.string(),
-  }),
-});
-
 const photos = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/photos" }),
   schema: z.object({
@@ -35,4 +26,4 @@ const photos = defineCollection({
   }),
 });
 
-export const collections = { tech, personal, photos };
+export const collections = { tech, photos };

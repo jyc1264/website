@@ -13,22 +13,14 @@ const formatDate = (date: Date) =>
 const techPosts = (await getCollection("tech")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-const personalPosts = (await getCollection("personal")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
 ---
 
-<BaseLayout title="Writing" description="Technical and personal writing by John Choi.">
+<BaseLayout title="Blog" description="Technical blog posts by John Choi.">
   <section class="py-16 sm:py-20">
-    <p class="meta-label font-mono text-xs text-[#d9c8ad]">Writing</p>
+    <p class="meta-label font-mono text-xs text-[#d9c8ad]">Blog</p>
     <h1 class="mt-5 max-w-4xl text-5xl font-medium leading-tight text-[#fffaf0] sm:text-7xl">
-      Research notes, build logs, and field essays.
+      Research notes and build logs.
     </h1>
-    <nav class="mt-8 flex w-fit max-w-full flex-wrap items-center gap-1 rounded-full border border-[#fff8ea]/22 bg-[#3b3029]/55 p-1 font-mono text-xs" aria-label="Writing sections">
-      <a class="rounded-full px-4 py-2 text-[#e8d9c4] underline-offset-4 transition hover:bg-[#fff8ea] hover:text-[#4e4037] hover:underline focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#fff8ea]" href="#tech">Tech / ML</a>
-      <span class="hidden px-1 text-[#d9c8ad]/45 sm:inline" aria-hidden="true">|</span>
-      <a class="rounded-full px-4 py-2 text-[#e8d9c4] underline-offset-4 transition hover:bg-[#fff8ea] hover:text-[#4e4037] hover:underline focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#fff8ea]" href="#personal">Personal</a>
-    </nav>
   </section>
 
   <section id="tech" class="section-rule scroll-mt-24 py-14">
@@ -48,27 +40,6 @@ const personalPosts = (await getCollection("personal")).sort(
           description={post.data.description}
           meta={formatDate(post.data.pubDate)}
           tags={post.data.tags}
-        />
-      ))}
-    </div>
-  </section>
-
-  <section id="personal" class="section-rule scroll-mt-24 py-14">
-    <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        <p class="meta-label font-mono text-xs text-[#d9c8ad]">Personal</p>
-        <h2 class="mt-3 text-4xl font-medium text-[#fffaf0]">Essays and notes</h2>
-      </div>
-      <p class="font-mono text-xs text-[#d9c8ad]">{personalPosts.length} entries</p>
-    </div>
-    <div class="grid gap-4">
-      {personalPosts.map((post) => (
-        <Card
-          href={`/blog/personal/${post.id}/`}
-          eyebrow="Personal"
-          title={post.data.title}
-          description={post.data.description}
-          meta={formatDate(post.data.pubDate)}
         />
       ))}
     </div>
