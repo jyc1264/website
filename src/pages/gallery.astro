@@ -92,12 +92,11 @@ const photoIndexById = new Map(carouselPhotos.map((photo, index) => [photo.id, i
       </p>
     </div>
     <nav class="w-full border-y border-[#fff8ea]/18 lg:justify-self-end lg:text-right" aria-label="Photography trips">
-      {tripGroups.map((group, index) => (
+      {tripGroups.map((group) => (
         <a
-          class="group grid grid-cols-[1.75rem_minmax(0,1fr)_1rem] items-center gap-3 border-b border-[#fff8ea]/14 py-2.5 font-mono text-xs transition last:border-b-0 hover:bg-[#fff8ea]/8 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#fff8ea]"
+          class="group grid grid-cols-[minmax(0,1fr)_1rem] items-center gap-3 border-b border-[#fff8ea]/14 py-2.5 font-mono text-xs transition last:border-b-0 hover:bg-[#fff8ea]/8 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#fff8ea]"
           href={`#${group.slug}`}
         >
-          <span class="text-left text-[0.68rem] text-[#d9c8ad]/65">{String(index + 1).padStart(2, "0")}</span>
           <span class="min-w-0">
             <span class="block truncate font-serif text-base leading-tight text-[#fffaf0] transition group-hover:text-white">
               {group.displayTitle}
