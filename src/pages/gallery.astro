@@ -9,6 +9,7 @@ type PhotoEntry = CollectionEntry<"photos">;
 
 interface TripGroup {
   title: string;
+  displayTitle: string;
   slug: string;
   photos: PhotoEntry[];
 }
@@ -37,6 +38,8 @@ const slugify = (value: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
+const formatTripLabel = (value: string) => value.replace(/\s+-\s+Early Summer\s+\d{4}$/i, "");
+
 const dateFormatter = new Intl.DateTimeFormat("en", {
   month: "short",
   year: "numeric",
@@ -64,6 +67,7 @@ const tripGroups: TripGroup[] = [
   ...extraTripTitles,
 ].map((trip) => ({
   title: trip,
+  displayTitle: formatTripLabel(trip),
   slug: slugify(trip),
   photos: [...(photosByTrip.get(trip) ?? [])].sort(
     (a, b) => b.data.shotDate.valueOf() - a.data.shotDate.valueOf(),
@@ -80,7 +84,7 @@ const photoIndexById = new Map(carouselPhotos.map((photo, index) => [photo.id, i
       <p class="meta-label font-mono text-xs text-[#d9c8ad]">Photography</p>
       <h1 class="mt-5 max-w-4xl text-5xl font-medium leading-tight text-[#fffaf0] sm:text-7xl">
         <span class="block">Snapshots of my life,</span>
-        <span class="block">aesthetic things,</span>
+        <span class="block">aesthetic views,</span>
         <span class="block">and things I love.</span>
       </h1>
       <p class="mt-8 max-w-2xl text-xl leading-9 text-[#e8d9c4]">
@@ -96,7 +100,7 @@ const photoIndexById = new Map(carouselPhotos.map((photo, index) => [photo.id, i
           <span class="text-left text-[0.68rem] text-[#d9c8ad]/65">{String(index + 1).padStart(2, "0")}</span>
           <span class="min-w-0">
             <span class="block truncate font-serif text-base leading-tight text-[#fffaf0] transition group-hover:text-white">
-              {group.title}
+              {group.displayTitle}
             </span>
             <span class="mt-1 block text-[0.68rem] text-[#d9c8ad]">
               {group.photos.length} frames · {formatDateRange(group.photos)}
@@ -118,7 +122,7 @@ const photoIndexById = new Map(carouselPhotos.map((photo, index) => [photo.id, i
             <div>
               <p class="meta-label font-mono text-[0.68rem] text-[#d9c8ad]">Trip</p>
               <h2 id={`${group.slug}-title`} class="mt-2 text-3xl font-medium leading-tight text-[#fffaf0] sm:text-4xl">
-                {group.title}
+                {group.displayTitle}
               </h2>
             </div>
             <p class="font-mono text-xs text-[#d9c8ad]">
