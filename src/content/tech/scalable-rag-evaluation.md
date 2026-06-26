@@ -2,6 +2,7 @@
 title: "Scalable RAG Evaluation Without a Golden Set"
 pubDate: 2026-03-18
 description: "A compact note on judging retrieval quality with lightweight probes, stratified slices, and model-assisted review."
+category: "Research"
 tags:
   - RAG
   - Evaluation

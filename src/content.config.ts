@@ -8,6 +8,7 @@ const tech = defineCollection({
     title: z.string(),
     pubDate: z.coerce.date(),
     description: z.string(),
+    category: z.string(),
     tags: z.array(z.string()),
   }),
 });

@@ -2,6 +2,7 @@
 title: "Photographing Vector Spaces"
 pubDate: 2026-01-09
 description: "A visual framing for embedding neighborhoods, failure clusters, and the stories hidden in nearest-neighbor graphs."
+category: "Research"
 tags:
   - Embeddings
   - Visualization
