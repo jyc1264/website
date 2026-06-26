@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
+import { getPhotoAsset } from "../utils/photoAssets";
 
 export interface Props {
   photo: CollectionEntry<"photos">;
@@ -8,6 +9,9 @@ export interface Props {
 }
 
 const { photo, index } = Astro.props;
+const image = getPhotoAsset(photo.data.imageSrc);
+const loading = index < 3 ? "eager" : "lazy";
+const fetchPriority = index === 0 ? "high" : "auto";
 const figureClass = [
   "group overflow-hidden border border-[#fff8ea]/20 bg-[#3b3029]/62 backdrop-blur-sm",
 ].filter(Boolean).join(" ");
@@ -21,11 +25,15 @@ const figureClass = [
     aria-label={`Open ${photo.data.title} in full-resolution carousel`}
   >
     <Image
-      src={photo.data.imageSrc}
+      src={image}
       alt={photo.data.title}
-      width={photo.data.imageWidth}
-      height={photo.data.imageHeight}
-      loading="lazy"
+      width={960}
+      widths={[320, 480, 640, 800, 960]}
+      sizes="(min-width: 1280px) 22rem, (min-width: 768px) calc((100vw - 6rem) / 2), calc(100vw - 2.5rem)"
+      format="webp"
+      quality="mid"
+      loading={loading}
+      fetchpriority={fetchPriority}
       decoding="async"
       class="h-auto w-full transition duration-500 group-hover:scale-[1.015]"
     />

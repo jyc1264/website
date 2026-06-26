@@ -2,7 +2,7 @@
 title: "Nightlife"
 shotDate: 2026-05-29T20:40:15
 trip: "Korea - Early Summer 2026"
-imageSrc: "/images/DSCF2152.JPG"
+imageSrc: "DSCF2152.JPG"
 imageWidth: 5152
 imageHeight: 6440
 cameraSettings: "23mm · f/11 · ISO 12800"

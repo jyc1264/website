@@ -66,17 +66,17 @@ Training goes through 3 phases:
 
 That function then tells BOTH models to tune their weights to account for any penalties incurred in step 3.
 
-![Backpropagation updates both towers](/images/blog/recommendation-backpropagation.svg)
+![Backpropagation updates both towers](../../assets/blog/recommendation-backpropagation.svg)
 
 You run this training through a couple billion rows of training data and you get two models that are tuned to relate users to videos. After training, you save these two models’ parameters and prep it to be used in production.
 
-![Two tower training flow](/images/blog/recommendation-training.png)
+![Two tower training flow](../../assets/blog/recommendation-training.png)
 
 ## Retrieval: Getting Recommendations
 
 Once trained, we use these models to serve real-time recommendations. Because user data (likes, shares) changes constantly while video data is relatively static, we run the video tower offline. We pre-compute the video embeddings, store them in a vector database, and use Approximate Nearest Neighbor (ANN) search to match them against live user profiles. We use the user tower to dynamically compute embeddings whenever a user logs on.
 
-![Two tower retrieval flow](/images/blog/recommendation-retrieval.png)
+![Two tower retrieval flow](../../assets/blog/recommendation-retrieval.png)
 
 ### Phases: Retrieve & Rank
 
@@ -96,7 +96,7 @@ The light/heavy ranking stage and how you model your towers are the secret behin
 
 Also the way that we optimize the embedding space and the retrieval/upload pattern is also heavily researched and optimized. Especially considering these companies are handling millions/billions of videos and users with ~10k~100k queries per second.
 
-![Recommendation ranking funnel](/images/blog/recommendation-ranking-funnel.svg)
+![Recommendation ranking funnel](../../assets/blog/recommendation-ranking-funnel.svg)
 
 <aside class="section-summary">
   <p><span class="summary-label">Summary</span> Embeddings are used to train two ML models to relate two things together. Once trained we use one of those models to create a searchable embedding space and the other to produce embeddings on-demand to search that embedding space.</p>

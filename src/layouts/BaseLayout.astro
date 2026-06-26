@@ -1,6 +1,8 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import "@styles/global.css";
 import "katex/dist/katex.min.css";
+import { getPhotoAsset } from "../utils/photoAssets";
 
 export interface Props {
   title: string;
@@ -11,7 +13,7 @@ export interface Props {
 const {
   title,
   description = "Machine Learning Engineer and Photographer portfolio.",
-  ogImage = "/images/DSCF2001.JPG",
+  ogImage = getPhotoAsset("DSCF2001.JPG").src,
 } = Astro.props;
 
 const siteName = "John Choi";
@@ -42,10 +44,14 @@ const navItems = [
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#725d4e" />
+    <ClientRouter />
   </head>
   <body class="antialiased">
     <div class="mx-auto flex min-h-screen w-full max-w-[92rem] flex-col px-5 sm:px-8 lg:px-12">
-      <header class="sticky top-0 z-30 -mx-5 border-b border-[#fff8ea]/20 bg-[#4e4037]/78 px-5 py-4 backdrop-blur sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12">
+      <header
+        class="sticky top-0 z-30 -mx-5 border-b border-[#fff8ea]/20 bg-[#4e4037]/78 px-5 py-4 backdrop-blur sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12"
+        transition:persist
+      >
         <nav class="mx-auto flex max-w-content items-center justify-between gap-5" aria-label="Primary">
           <a href="/" class="font-mono text-sm text-[#fff8ea] transition hover:text-white">
             JC
