@@ -78,7 +78,7 @@ Once trained, we use these models to serve real-time recommendations. Because us
 
 ![Two tower retrieval flow](/images/blog/recommendation-retrieval.png)
 
-### Phases:
+### Phases: Retrieve & Rank
 
 Retrieval doesn’t just rely on vector search to serve recommendations. Vector search is extremely quick and useful to drastically decrease the number of potential good recommendations (50M → 5,000). However, it is not great at choosing the absolute best top 10/20 candidates.
 
@@ -101,3 +101,9 @@ Also the way that we optimize the embedding space and the retrieval/upload patte
 <aside class="section-summary">
   <p><span class="summary-label">Summary</span> Embeddings are used to train two ML models to relate two things together. Once trained we use one of those models to create a searchable embedding space and the other to produce embeddings on-demand to search that embedding space.</p>
 </aside>
+
+## Conclusion
+
+The power of embeddings as a vehicle for classification and relation are evident because we begin to speak the language that computers understand. From beginning to end this entire process is much more complicated and refined which I'll dive into in future articles.
+
+Embedding word counter: 20

@@ -57,6 +57,7 @@
   }
 
   .prose-portfolio :where(h1, h2, h3) {
+    scroll-margin-top: 6rem;
     color: rgb(255 250 240);
     font-family: Georgia, Cambria, "Times New Roman", serif;
     font-weight: 500;

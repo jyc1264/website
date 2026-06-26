@@ -16,41 +16,71 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 const formattedDate = new Intl.DateTimeFormat("en", {
   month: "long",
   day: "numeric",
   year: "numeric",
 }).format(post.data.pubDate);
+const tableOfContents = headings.filter((heading) => heading.depth >= 2 && heading.depth <= 3);
+const hasTableOfContents = tableOfContents.length > 1;
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
-  <article class="mx-auto max-w-3xl py-16 sm:py-20">
-    <a
-      class="inline-flex items-center gap-2 rounded-full border border-[#fff8ea]/20 bg-[#3b3029]/45 px-3 py-1.5 font-mono text-xs text-[#e8d9c4] transition hover:border-[#fff8ea]/45 hover:bg-[#fff8ea] hover:text-[#4e4037] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#fff8ea]"
-      href="/blog/"
-      aria-label="Back to blog catalog"
-    >
-      <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <path d="M9.5 3.75 5.25 8l4.25 4.25" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" />
-        <path d="M5.75 8h5.5" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
-      </svg>
-      Back to blog
-    </a>
-    <header class="mt-8 border-b border-[#fff8ea]/20 pb-10">
-      <p class="meta-label font-mono text-xs text-[#d9c8ad]">Tech / ML · {formattedDate}</p>
-      <h1 class="mt-5 text-5xl font-medium leading-tight text-[#fffaf0] sm:text-6xl">{post.data.title}</h1>
-      <p class="mt-6 text-xl leading-8 text-[#e8d9c4]">{post.data.description}</p>
-      <div class="mt-6 flex flex-wrap gap-2">
-        {post.data.tags.map((tag) => (
-          <span class="border border-[#fff8ea]/18 bg-[#3b3029]/60 px-2 py-1 font-mono text-[0.68rem] text-[#d9c8ad]">
-            {tag}
-          </span>
-        ))}
+  <div
+    class:list={[
+      "mx-auto grid grid-cols-1 gap-10 py-16 sm:py-20",
+      hasTableOfContents
+        ? "max-w-6xl lg:grid-cols-[12rem_minmax(0,48rem)] lg:justify-center lg:gap-12 xl:grid-cols-[14rem_minmax(0,48rem)]"
+        : "max-w-3xl",
+    ]}
+  >
+    {hasTableOfContents && (
+      <aside class="sticky top-28 hidden max-h-[calc(100vh-8rem)] self-start overflow-y-auto pt-16 lg:block">
+        <nav class="border-l border-[#fff8ea]/18 pl-4" aria-label="Table of contents">
+          <p class="meta-label font-mono text-[0.65rem] text-[#d9c8ad]">On this page</p>
+          <ol class="mt-4 space-y-2.5 font-mono text-[0.72rem] leading-5 text-[#e8d9c4]/72">
+            {tableOfContents.map((heading) => (
+              <li class:list={[heading.depth === 3 && "pl-3"]}>
+                <a
+                  class="block border-l border-transparent pl-3 transition hover:border-[#fff8ea]/45 hover:text-[#fffaf0]"
+                  href={`#${heading.slug}`}
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </aside>
+    )}
+    <article class="min-w-0 max-w-3xl">
+      <a
+        class="inline-flex items-center gap-2 rounded-full border border-[#fff8ea]/20 bg-[#3b3029]/45 px-3 py-1.5 font-mono text-xs text-[#e8d9c4] transition hover:border-[#fff8ea]/45 hover:bg-[#fff8ea] hover:text-[#4e4037] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#fff8ea]"
+        href="/blog/"
+        aria-label="Back to blog catalog"
+      >
+        <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M9.5 3.75 5.25 8l4.25 4.25" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M5.75 8h5.5" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+        </svg>
+        Back to blog
+      </a>
+      <header class="mt-8 border-b border-[#fff8ea]/20 pb-10">
+        <p class="meta-label font-mono text-xs text-[#d9c8ad]">{post.data.category} · {formattedDate}</p>
+        <h1 class="mt-5 text-5xl font-medium leading-tight text-[#fffaf0] sm:text-6xl">{post.data.title}</h1>
+        <p class="mt-6 text-xl leading-8 text-[#e8d9c4]">{post.data.description}</p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          {post.data.tags.map((tag) => (
+            <span class="border border-[#fff8ea]/18 bg-[#3b3029]/60 px-2 py-1 font-mono text-[0.68rem] text-[#d9c8ad]">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </header>
+      <div class="prose-portfolio mt-10">
+        <Content />
       </div>
-    </header>
-    <div class="prose-portfolio mt-10">
-      <Content />
-    </div>
-  </article>
+    </article>
+  </div>
 </BaseLayout>
