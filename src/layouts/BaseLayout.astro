@@ -103,6 +103,7 @@ const navItems = [
         const NAV_SELECTOR = "[data-primary-nav]";
         const LINK_SELECTOR = "[data-primary-nav-link]";
         const INDICATOR_SELECTOR = "[data-primary-nav-indicator]";
+        let primaryNavUpdateFrame = 0;
 
         const normalizePath = (path) => path.replace(/\/+$/, "") || "/";
 
@@ -118,6 +119,8 @@ const navItems = [
         };
 
         const updatePrimaryNav = () => {
+          primaryNavUpdateFrame = 0;
+
           const nav = document.querySelector(NAV_SELECTOR);
           if (!(nav instanceof HTMLElement)) {
             return;
@@ -147,22 +150,34 @@ const navItems = [
 
           const navRect = nav.getBoundingClientRect();
           const activeRect = activeLink.getBoundingClientRect();
+          const width = `${Math.round(activeRect.width * 100) / 100}px`;
+          const transform = `translate3d(${Math.round((activeRect.left - navRect.left) * 100) / 100}px, 0, 0)`;
 
-          indicator.style.width = `${activeRect.width}px`;
-          indicator.style.transform = `translate3d(${activeRect.left - navRect.left}px, 0, 0)`;
+          if (indicator.style.width !== width) {
+            indicator.style.width = width;
+          }
+
+          if (indicator.style.transform !== transform) {
+            indicator.style.transform = transform;
+          }
+
           indicator.style.opacity = "1";
           nav.classList.add("has-indicator");
         };
 
         const schedulePrimaryNavUpdate = () => {
-          updatePrimaryNav();
-          requestAnimationFrame(updatePrimaryNav);
+          if (primaryNavUpdateFrame) {
+            return;
+          }
+
+          primaryNavUpdateFrame = requestAnimationFrame(updatePrimaryNav);
         };
 
         if (!window.__primaryNavInitialized) {
           window.__primaryNavInitialized = true;
           document.addEventListener("astro:page-load", schedulePrimaryNavUpdate);
-          window.addEventListener("resize", schedulePrimaryNavUpdate);
+          window.addEventListener("resize", schedulePrimaryNavUpdate, { passive: true });
+          window.addEventListener("orientationchange", schedulePrimaryNavUpdate, { passive: true });
         }
 
         schedulePrimaryNavUpdate();

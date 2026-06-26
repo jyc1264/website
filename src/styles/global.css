@@ -73,10 +73,11 @@
     background: rgb(255 248 234 / 0.9);
     box-shadow: 0 8px 24px rgb(255 248 234 / 0.14);
     opacity: 0;
+    transform: translate3d(0, 0, 0);
     transition:
-      transform 480ms cubic-bezier(0.22, 1, 0.36, 1),
-      width 480ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
       opacity 180ms ease;
+    will-change: transform, opacity;
   }
 
   .primary-nav-link {
