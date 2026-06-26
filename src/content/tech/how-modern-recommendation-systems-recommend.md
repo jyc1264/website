@@ -65,17 +65,7 @@ Training goes through 3 phases:
 
 That function then tells BOTH models to tune their weights to account for any penalties incurred in step 3.
 
-```text
-Backpropagation
-
-        [ Loss Function Penalty ]
-                  |
-        +---------+---------+
-        |                   |
-        v                   v
- [ User Tower ]      [ Video Tower ]
- (adjust weights)    (adjust weights)
-```
+![Backpropagation updates both towers](/images/blog/recommendation-backpropagation.svg)
 
 You run this training through a couple billion rows of training data and you get two models that are tuned to relate users to videos. After training, you save these two models’ parameters and prep it to be used in production.
 
@@ -105,41 +95,7 @@ The light/heavy ranking stage and how you model your towers are the secret behin
 
 Also the way that we optimize the embedding space and the retrieval/upload pattern is also heavily researched and optimized. Especially considering these companies are handling millions/billions of videos and users with ~10k~100k queries per second.
 
-```text
-[ Billions of Videos/Products ]
-              |
-              v
-+---------------------------+
-| 1. Retrieval (Two-Tower)  |
-+---------------------------+
-  Focus: speed and recall
-  Drops down to ~1,000s
-              |
-              v
-+---------------------------+
-| 2. Pre-Ranking (Light)    |
-+---------------------------+
-  Trims candidates with cheaper, faster logic
-  Drops down to ~100s
-              |
-              v
-+---------------------------+
-| 3. Heavy Ranking          |
-+---------------------------+
-  Focus: absolute precision
-  DeepFM, Monolith, etc.
-  Drops down to Top 20-50
-              |
-              v
-+---------------------------+
-| 4. Re-Ranking (Business)  |
-+---------------------------+
-  Diversification, freshness boosts,
-  ads, and safety filters
-              |
-              v
-      [ User's Screen ]
-```
+![Recommendation ranking funnel](/images/blog/recommendation-ranking-funnel.svg)
 
 <aside class="section-summary">
   <p><span class="summary-label">Summary</span> Embeddings are used to train two ML models to relate two things together. Once trained we use one of those models to create a searchable embedding space and the other to produce embeddings on-demand to search that embedding space.</p>

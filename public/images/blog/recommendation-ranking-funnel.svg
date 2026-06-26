@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1180" role="img" aria-labelledby="title desc">
+  <title id="title">Recommendation ranking funnel</title>
+  <desc id="desc">Billions of videos or products pass through retrieval, pre-ranking, heavy ranking, re-ranking, and then reach the user's screen.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f1f1f" />
+    </marker>
+    <filter id="roughen">
+      <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="1" seed="11" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.7" />
+    </filter>
+  </defs>
+
+  <rect width="720" height="1180" fill="#ffffff" />
+
+  <g filter="url(#roughen)" stroke="#1f1f1f" stroke-width="2">
+    <rect x="118" y="55" width="444" height="158" rx="16" fill="#b3efbe" />
+    <rect x="12" y="273" width="676" height="152" rx="15" fill="#fff0a4" />
+    <rect x="50" y="464" width="580" height="154" rx="15" fill="#fff0a4" />
+    <rect x="94" y="665" width="502" height="154" rx="15" fill="#fff0a4" />
+    <rect x="135" y="859" width="406" height="154" rx="15" fill="#fff0a4" />
+    <rect x="174" y="1068" width="326" height="104" rx="15" fill="#9fd1f3" />
+  </g>
+
+  <g stroke="#1f1f1f" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <line x1="340" y1="215" x2="340" y2="267" />
+    <line x1="340" y1="426" x2="340" y2="459" />
+    <line x1="340" y1="620" x2="340" y2="660" />
+    <line x1="340" y1="821" x2="340" y2="855" />
+    <line x1="340" y1="1014" x2="340" y2="1062" />
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif" fill="#111111" text-anchor="middle">
+    <text x="340" y="143" font-size="24">Billions of Videos/Products</text>
+
+    <text x="340" y="315" font-size="24">1. Retrieval (Two-Tower)</text>
+    <text x="340" y="344" font-size="23">Focus: Speed and Recall</text>
+    <text x="340" y="399" font-size="23">Drops down to ~1000s</text>
+
+    <text x="340" y="505" font-size="24">2. Pre-Ranking (Light)</text>
+    <text x="340" y="535" font-size="22">Trims candidates with cheaper, faster logic</text>
+    <text x="340" y="591" font-size="23">Drops down to ~100s</text>
+
+    <text x="340" y="706" font-size="24">3. Heavy Ranking</text>
+    <text x="340" y="735" font-size="23">Focus: Absolute Precision</text>
+    <text x="340" y="779" font-size="22">DeepFM, Monolith, etc.</text>
+    <text x="340" y="807" font-size="22">Drops down to Top 20-50</text>
+
+    <text x="340" y="912" font-size="24">4. Re-Ranking (Business)</text>
+    <text x="340" y="942" font-size="21">Diversification, freshness boosts, ads,</text>
+    <text x="340" y="970" font-size="21">and safety filters</text>
+
+    <text x="337" y="1131" font-size="24">User's Screen</text>
+  </g>
+</svg>

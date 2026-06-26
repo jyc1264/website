@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 450" role="img" aria-labelledby="title desc">
+  <title id="title">Backpropagation loss flow</title>
+  <desc id="desc">A loss function penalty updates the user tower and video tower weights.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f1f1f" />
+    </marker>
+    <filter id="roughen">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="1" seed="6" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.7" />
+    </filter>
+  </defs>
+
+  <rect width="960" height="450" fill="#ffffff" />
+
+  <g filter="url(#roughen)" stroke="#1f1f1f" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <path d="M 318 129 C 247 148 209 170 224 220" />
+    <path d="M 735 129 C 825 151 854 176 835 225" />
+  </g>
+
+  <g filter="url(#roughen)">
+    <rect x="280" y="36" width="470" height="147" rx="14" fill="#9fd1f3" stroke="#1f1f1f" stroke-width="2" />
+    <rect x="22" y="228" width="438" height="181" rx="14" fill="#fff0a4" stroke="#1f1f1f" stroke-width="2" />
+    <rect x="511" y="230" width="438" height="181" rx="14" fill="#fff0a4" stroke="#1f1f1f" stroke-width="2" />
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif" fill="#111111" text-anchor="middle">
+    <text x="515" y="117" font-size="24">Loss Function Penalty</text>
+
+    <text x="241" y="311" font-size="24">User Tower</text>
+    <text x="241" y="339" font-size="22">(adjust weights)</text>
+
+    <text x="730" y="313" font-size="24">Video Tower</text>
+    <text x="730" y="341" font-size="22">(adjust weights)</text>
+  </g>
+</svg>
