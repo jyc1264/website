@@ -89,20 +89,39 @@ const milestones: CareerMilestone[] = [
   </section>
 
   <script is:inline>
-    const cue = document.querySelector("[data-scroll-cue]");
+    (() => {
+      const CUE_SELECTOR = "[data-scroll-cue]";
+      const HIDDEN_CLASS = "scroll-cue-hidden";
 
-    if (cue instanceof HTMLElement) {
       const hideCue = () => {
-        cue.classList.add("translate-y-2", "opacity-0", "pointer-events-none");
+        const cue = document.querySelector(CUE_SELECTOR);
+
+        if (cue instanceof HTMLElement) {
+          cue.classList.add(HIDDEN_CLASS);
+        }
       };
 
-      if (window.scrollY > 8) {
-        hideCue();
+      const syncCue = () => {
+        if (window.scrollY > 8) {
+          hideCue();
+        }
+      };
+
+      if (!window.__scrollCueInitialized) {
+        window.__scrollCueInitialized = true;
+
+        ["scroll", "wheel", "touchstart"].forEach((eventName) => {
+          window.addEventListener(eventName, hideCue, { passive: true, capture: true });
+        });
+
+        ["pointerdown", "keydown", "focusin"].forEach((eventName) => {
+          window.addEventListener(eventName, hideCue, { capture: true });
+        });
+
+        document.addEventListener("astro:page-load", syncCue);
       }
 
-      ["scroll", "wheel", "touchstart", "keydown", "click"].forEach((eventName) => {
-        window.addEventListener(eventName, hideCue, { once: true, passive: true });
-      });
-    }
+      syncCue();
+    })();
   </script>
 </BaseLayout>

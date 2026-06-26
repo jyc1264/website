@@ -114,6 +114,12 @@
     background: transparent;
   }
 
+  .scroll-cue-hidden {
+    --tw-translate-y: 0.5rem;
+    opacity: 0;
+    pointer-events: none;
+  }
+
   @media (min-width: 640px) {
     .primary-nav-link {
       padding-right: 1rem;
