@@ -19,11 +19,22 @@ const {
 const siteName = "John Choi";
 const pageTitle = title === siteName ? title : `${title} | ${siteName}`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://example.com").toString();
+const normalizePath = (path: string) => path.replace(/\/+$/, "") || "/";
+const currentPath = normalizePath(Astro.url.pathname);
+const isActiveNavItem = (href: string) => {
+  const navPath = normalizePath(href);
+
+  if (navPath === "/") {
+    return currentPath === "/";
+  }
+
+  return currentPath === navPath || currentPath.startsWith(`${navPath}/`);
+};
 
 const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/blog/", label: "Blog" },
-  { href: "/gallery/", label: "Photography" },
+  { href: "/", label: "Home", active: isActiveNavItem("/") },
+  { href: "/blog/", label: "Blog", active: isActiveNavItem("/blog/") },
+  { href: "/gallery/", label: "Photography", active: isActiveNavItem("/gallery/") },
 ];
 ---
 
@@ -56,11 +67,15 @@ const navItems = [
           <a href="/" class="font-mono text-sm text-[#fff8ea] transition hover:text-white">
             JC
           </a>
-          <div class="flex items-center gap-1 rounded-full border border-[#fff8ea]/22 bg-[#3b3029]/55 p-1">
+          <div class="primary-nav" data-primary-nav>
+            <span class="primary-nav-indicator" data-primary-nav-indicator aria-hidden="true"></span>
             {navItems.map((item) => (
               <a
                 href={item.href}
-                class="rounded-full px-3 py-1.5 font-mono text-xs text-[#e8d9c4] transition hover:bg-[#fff8ea] hover:text-[#4e4037] sm:px-4"
+                class:list={["primary-nav-link", item.active && "is-active"]}
+                data-primary-nav-link
+                data-nav-path={item.href}
+                aria-current={item.active ? "page" : undefined}
               >
                 {item.label}
               </a>
@@ -83,5 +98,75 @@ const navItems = [
         </div>
       </footer>
     </div>
+    <script is:inline>
+      (() => {
+        const NAV_SELECTOR = "[data-primary-nav]";
+        const LINK_SELECTOR = "[data-primary-nav-link]";
+        const INDICATOR_SELECTOR = "[data-primary-nav-indicator]";
+
+        const normalizePath = (path) => path.replace(/\/+$/, "") || "/";
+
+        const linkMatchesPath = (link, pathname) => {
+          const currentPath = normalizePath(pathname);
+          const linkPath = normalizePath(link.dataset.navPath || new URL(link.href).pathname);
+
+          if (linkPath === "/") {
+            return currentPath === "/";
+          }
+
+          return currentPath === linkPath || currentPath.startsWith(`${linkPath}/`);
+        };
+
+        const updatePrimaryNav = () => {
+          const nav = document.querySelector(NAV_SELECTOR);
+          if (!(nav instanceof HTMLElement)) {
+            return;
+          }
+
+          const indicator = nav.querySelector(INDICATOR_SELECTOR);
+          const links = Array.from(nav.querySelectorAll(LINK_SELECTOR)).filter(
+            (link) => link instanceof HTMLAnchorElement,
+          );
+          const activeLink = links.find((link) => linkMatchesPath(link, window.location.pathname)) || links[0];
+
+          if (!(indicator instanceof HTMLElement) || !(activeLink instanceof HTMLAnchorElement)) {
+            return;
+          }
+
+          for (const link of links) {
+            const isActive = link === activeLink;
+
+            link.classList.toggle("is-active", isActive);
+
+            if (isActive) {
+              link.setAttribute("aria-current", "page");
+            } else {
+              link.removeAttribute("aria-current");
+            }
+          }
+
+          const navRect = nav.getBoundingClientRect();
+          const activeRect = activeLink.getBoundingClientRect();
+
+          indicator.style.width = `${activeRect.width}px`;
+          indicator.style.transform = `translate3d(${activeRect.left - navRect.left}px, 0, 0)`;
+          indicator.style.opacity = "1";
+          nav.classList.add("has-indicator");
+        };
+
+        const schedulePrimaryNavUpdate = () => {
+          updatePrimaryNav();
+          requestAnimationFrame(updatePrimaryNav);
+        };
+
+        if (!window.__primaryNavInitialized) {
+          window.__primaryNavInitialized = true;
+          document.addEventListener("astro:page-load", schedulePrimaryNavUpdate);
+          window.addEventListener("resize", schedulePrimaryNavUpdate);
+        }
+
+        schedulePrimaryNavUpdate();
+      })();
+    </script>
   </body>
 </html>
