@@ -1,6 +1,6 @@
 ---
 title: "How Modern Recommendation Systems Recommend"
-pubDate: 2026-06-26
+pubDate: 2026-06-25
 description: "Explaining how the recommendation systems we interact with everyday know exactly what it takes to keep you on their platform."
 category: "Guide"
 tags:
