@@ -1,14 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="JC">
-  <rect width="64" height="64" fill="#5b493d" />
-  <text
-    x="50%"
-    y="50%"
-    fill="#fff8ea"
-    font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace"
-    font-size="30"
-    font-weight="400"
-    text-anchor="middle"
-    dominant-baseline="central"
-    letter-spacing="0"
-  >JC</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">John Choi j. logo</title>
+  <path d="M30 2.5C47.5 2.5 61.5 15 61.5 32C61.5 49.5 49 61.5 32 61.5C14.5 61.5 2.5 49 2.5 31C2.5 14.5 13 2.5 30 2.5Z" fill="#f7c9dd" stroke="#2d203d" stroke-width="2.5"/>
+  <!-- Outlined from Bricolage Grotesque; license: /fonts/bricolagegrotesque-OFL.txt -->
+  <path d="M23.822 -199.666Q17.572 -199.666 11.715 -199.142Q5.858 -198.619 -1.023 -197.774L-13.357 -67.45Q28.904 -65.771 46.577 -51.022Q64.249 -36.272 64.249 5.525V526.643H217.418V-1.047Q217.418 -53.88 204.596 -91.66Q191.775 -129.44 167.132 -153.196Q142.489 -176.952 106.411 -188.309Q70.334 -199.666 23.822 -199.666ZM140.631 598.546Q96.472 598.546 73.051 617.102Q49.63 635.658 49.63 671.007Q49.63 707.155 73.073 725.852Q96.515 744.548 140.607 744.548Q185.657 744.548 209.097 725.792Q232.537 707.036 232.537 671.113Q232.537 636.062 209.081 617.304Q185.626 598.546 140.631 598.546ZM363.836 -12.833Q314.512 -12.833 290.185 8.167Q265.857 29.167 265.857 73.165Q265.857 118.085 290.208 139.079Q314.559 160.073 363.86 160.073Q414.18 160.073 438.96 139.079Q463.74 118.085 463.74 73.132Q463.74 -12.833 363.836 -12.833Z" transform="translate(22.601 43.371) scale(0.042 -0.042)" fill="#2d203d"/>
 </svg>
