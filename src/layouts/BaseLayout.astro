@@ -15,27 +15,16 @@ const {
   description = "Machine Learning Engineer and Photographer portfolio.",
   ogImage = getPhotoAsset("DSCF2001.JPG").src,
 } = Astro.props;
-
 const siteName = "John Choi";
 const pageTitle = title === siteName ? title : `${title} | ${siteName}`;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://example.com").toString();
-const normalizePath = (path: string) => path.replace(/\/+$/, "") || "/";
-const currentPath = normalizePath(Astro.url.pathname);
-const isActiveNavItem = (href: string) => {
-  const navPath = normalizePath(href);
-
-  if (navPath === "/") {
-    return currentPath === "/";
-  }
-
-  return currentPath === navPath || currentPath.startsWith(`${navPath}/`);
-};
-
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://yohanchoi.com").toString();
+const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
 const navItems = [
-  { href: "/", label: "Home", active: isActiveNavItem("/") },
-  { href: "/blog/", label: "Blog", active: isActiveNavItem("/blog/") },
-  { href: "/gallery/", label: "Photography", active: isActiveNavItem("/gallery/") },
+  { href: "/", label: "Home" },
+  { href: "/blog/", label: "Writing" },
+  { href: "/gallery/", label: "Photography" },
 ];
+const isActive = (href: string) => href === "/" ? currentPath === "/" : currentPath.startsWith(href.replace(/\/$/, ""));
 ---
 
 <!doctype html>
@@ -52,136 +41,93 @@ const navItems = [
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).toString()} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#725d4e" />
+    <meta name="theme-color" content="#EEE9F5" />
+    <link rel="preload" href="/fonts/BricolageGrotesque-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <script is:inline>
+      try {
+        const saved = localStorage.getItem("portfolio-theme");
+        document.documentElement.dataset.theme = saved === "dark" || saved === "light"
+          ? saved : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    </script>
     <ClientRouter />
   </head>
-  <body class="antialiased">
-    <div class="mx-auto flex min-h-screen w-full max-w-[92rem] flex-col px-5 sm:px-8 lg:px-12">
-      <header
-        class="sticky top-0 z-30 -mx-5 border-b border-[#fff8ea]/20 bg-[#4e4037]/78 px-5 py-4 backdrop-blur sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12"
-        transition:persist
-      >
-        <nav class="mx-auto flex max-w-content items-center justify-between gap-5" aria-label="Primary">
-          <a href="/" class="font-mono text-sm text-[#fff8ea] transition hover:text-white">
-            JC
-          </a>
-          <div class="primary-nav" data-primary-nav>
-            <span class="primary-nav-indicator" data-primary-nav-indicator aria-hidden="true"></span>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner container">
+        <a class="site-brand" href="/" aria-label="John Choi, home"><span class="brand-mark" aria-hidden="true">j.</span><span>John Choi</span></a>
+        <div class="header-actions">
+          <nav class="primary-nav" aria-label="Primary">
             {navItems.map((item) => (
-              <a
-                href={item.href}
-                class:list={["primary-nav-link", item.active && "is-active"]}
-                data-primary-nav-link
-                data-nav-path={item.href}
-                aria-current={item.active ? "page" : undefined}
-              >
+              <a href={item.href} class="primary-nav-link" aria-current={isActive(item.href) ? "page" : undefined}>
                 {item.label}
               </a>
             ))}
-          </div>
-        </nav>
-      </header>
-
-      <main class="mx-auto w-full max-w-content flex-1">
-        <slot />
-      </main>
-
-      <footer class="mx-auto w-full max-w-content border-t border-[#fff8ea]/20 py-10">
-        <div class="flex flex-col gap-4 text-sm text-[#e8d9c4] sm:flex-row sm:items-center sm:justify-between">
-          <p class="font-mono">© {new Date().getFullYear()} {siteName}</p>
-          <div class="flex flex-wrap gap-x-4 gap-y-2 font-mono">
-            <a class="transition hover:text-white" href="mailto:jyc1261@outlook.com">Email</a>
-            <a class="transition hover:text-white" href="https://www.linkedin.com/in/john-choi-24a83a149/" rel="noreferrer">LinkedIn</a>
-          </div>
+          </nav>
+          <button class="theme-toggle icon-button" type="button" data-theme-toggle aria-label="Change color theme" title="Change color theme" hidden>
+            <svg class="theme-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4 19 5"/></svg>
+            <svg class="theme-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.8 13A9 9 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"/></svg>
+          </button>
         </div>
-      </footer>
-    </div>
-    <script is:inline>
-      (() => {
-        const NAV_SELECTOR = "[data-primary-nav]";
-        const LINK_SELECTOR = "[data-primary-nav-link]";
-        const INDICATOR_SELECTOR = "[data-primary-nav-indicator]";
-        let primaryNavUpdateFrame = 0;
-
-        const normalizePath = (path) => path.replace(/\/+$/, "") || "/";
-
-        const linkMatchesPath = (link, pathname) => {
-          const currentPath = normalizePath(pathname);
-          const linkPath = normalizePath(link.dataset.navPath || new URL(link.href).pathname);
-
-          if (linkPath === "/") {
-            return currentPath === "/";
-          }
-
-          return currentPath === linkPath || currentPath.startsWith(`${linkPath}/`);
-        };
-
-        const updatePrimaryNav = () => {
-          primaryNavUpdateFrame = 0;
-
-          const nav = document.querySelector(NAV_SELECTOR);
-          if (!(nav instanceof HTMLElement)) {
-            return;
-          }
-
-          const indicator = nav.querySelector(INDICATOR_SELECTOR);
-          const links = Array.from(nav.querySelectorAll(LINK_SELECTOR)).filter(
-            (link) => link instanceof HTMLAnchorElement,
-          );
-          const activeLink = links.find((link) => linkMatchesPath(link, window.location.pathname)) || links[0];
-
-          if (!(indicator instanceof HTMLElement) || !(activeLink instanceof HTMLAnchorElement)) {
-            return;
-          }
-
-          for (const link of links) {
-            const isActive = link === activeLink;
-
-            link.classList.toggle("is-active", isActive);
-
-            if (isActive) {
-              link.setAttribute("aria-current", "page");
-            } else {
-              link.removeAttribute("aria-current");
-            }
-          }
-
-          const navRect = nav.getBoundingClientRect();
-          const activeRect = activeLink.getBoundingClientRect();
-          const width = `${Math.round(activeRect.width * 100) / 100}px`;
-          const transform = `translate3d(${Math.round((activeRect.left - navRect.left) * 100) / 100}px, 0, 0)`;
-
-          if (indicator.style.width !== width) {
-            indicator.style.width = width;
-          }
-
-          if (indicator.style.transform !== transform) {
-            indicator.style.transform = transform;
-          }
-
-          indicator.style.opacity = "1";
-          nav.classList.add("has-indicator");
-        };
-
-        const schedulePrimaryNavUpdate = () => {
-          if (primaryNavUpdateFrame) {
-            return;
-          }
-
-          primaryNavUpdateFrame = requestAnimationFrame(updatePrimaryNav);
-        };
-
-        if (!window.__primaryNavInitialized) {
-          window.__primaryNavInitialized = true;
-          document.addEventListener("astro:page-load", schedulePrimaryNavUpdate);
-          window.addEventListener("resize", schedulePrimaryNavUpdate, { passive: true });
-          window.addEventListener("orientationchange", schedulePrimaryNavUpdate, { passive: true });
-        }
-
-        schedulePrimaryNavUpdate();
-      })();
+      </div>
+    </header>
+    <main id="main-content" class="container site-main" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="site-footer container">
+      <p>© {new Date().getFullYear()} {siteName}</p>
+      <div class="footer-links">
+        <a href="mailto:jyc1261@outlook.com">Email</a>
+        <a href="https://www.linkedin.com/in/john-choi-24a83a149/" rel="noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+    <script>
+      const storageKey = "portfolio-theme";
+      let sessionTheme: "dark" | "light" | null = null;
+      const systemTheme = matchMedia("(prefers-color-scheme: dark)");
+      const savedTheme = () => {
+        try { return localStorage.getItem(storageKey); } catch { return null; }
+      };
+      const currentTheme = () => {
+        const saved = sessionTheme ?? savedTheme();
+        return saved === "dark" || saved === "light" ? saved : (systemTheme.matches ? "dark" : "light");
+      };
+      const syncTheme = () => {
+        const theme = currentTheme();
+        document.documentElement.dataset.theme = theme;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#241D2D" : "#EEE9F5");
+        document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((button) => {
+          button.hidden = false;
+          const label = `Switch to ${theme === "dark" ? "light" : "dark"} mode`;
+          button.setAttribute("aria-label", label);
+          button.title = label;
+        });
+      };
+      document.addEventListener("click", (event) => {
+        if (!(event.target instanceof Element) || !event.target.closest("[data-theme-toggle]")) return;
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        sessionTheme = next;
+        try { localStorage.setItem(storageKey, next); } catch { /* Theme still works when storage is unavailable. */ }
+        document.documentElement.dataset.theme = next;
+        // Update the button without depending on storage being available.
+        document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((button) => {
+          const label = `Switch to ${next === "dark" ? "light" : "dark"} mode`;
+          button.setAttribute("aria-label", label);
+          button.title = label;
+        });
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", next === "dark" ? "#241D2D" : "#EEE9F5");
+      });
+      document.addEventListener("astro:before-swap", (event) => {
+        event.newDocument.documentElement.dataset.theme = document.documentElement.dataset.theme || currentTheme();
+      });
+      document.addEventListener("astro:page-load", syncTheme);
+      systemTheme.addEventListener("change", () => { if (!sessionTheme && !savedTheme()) syncTheme(); });
+      syncTheme();
     </script>
   </body>
 </html>

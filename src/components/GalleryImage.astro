@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { getPhotoAsset } from "../utils/photoAssets";
 
@@ -10,41 +10,44 @@ export interface Props {
 
 const { photo, index } = Astro.props;
 const image = getPhotoAsset(photo.data.imageSrc);
-const loading = index < 3 ? "eager" : "lazy";
-const fetchPriority = index === 0 ? "high" : "auto";
-const figureClass = [
-  "group overflow-hidden border border-[#fff8ea]/20 bg-[#3b3029]/62 backdrop-blur-sm",
-].filter(Boolean).join(" ");
+const fullImage = await getImage({ src: image, width: 1920, format: "webp", quality: "mid" });
+const titleId = `photo-title-${photo.id}`;
 ---
 
-<figure class={figureClass}>
-  <button
-    type="button"
-    data-gallery-open={index}
-    class="block w-full cursor-zoom-in text-left"
-    aria-label={`Open ${photo.data.title} in full-resolution carousel`}
-  >
-    <Image
-      src={image}
-      alt={photo.data.title}
-      width={960}
-      widths={[320, 480, 640, 800, 960]}
-      sizes="(min-width: 1280px) 22rem, (min-width: 768px) calc((100vw - 6rem) / 2), calc(100vw - 2.5rem)"
-      format="webp"
-      quality="mid"
-      loading={loading}
-      fetchpriority={fetchPriority}
-      decoding="async"
-      class="h-auto w-full transition duration-500 group-hover:scale-[1.015]"
-    />
-  </button>
-  <figcaption class="border-t border-[#fff8ea]/20 bg-[#3b3029]/82 p-4">
-    <div class="flex flex-col gap-2">
-      <div class="flex flex-wrap items-start justify-between gap-3">
-        <h2 class="text-lg font-medium leading-tight text-[#fffaf0]">{photo.data.title}</h2>
-        <span class="font-mono text-[0.68rem] text-[#d9c8ad]">{photo.data.cameraSettings}</span>
-      </div>
-      <p class="text-sm leading-6 text-[#e8d9c4]">{photo.data.description}</p>
+<a class="photo-link nav-region" href={fullImage.src} data-gallery-open={index} data-astro-reload aria-labelledby={titleId}>
+  <figure class="photo-figure">
+    <div class="photo-image">
+      <Image
+        src={image}
+        alt={photo.data.title}
+        width={960}
+        widths={[320, 480, 640, 800, 960]}
+        sizes="(min-width: 1000px) 24rem, (min-width: 640px) calc((100vw - 5rem) / 2), calc(100vw - 2.5rem)"
+        format="webp"
+        quality="mid"
+        loading={index < 3 ? "eager" : "lazy"}
+        fetchpriority={index === 0 ? "high" : "auto"}
+        decoding="async"
+      />
+      <span class="image-open" aria-hidden="true">View photo</span>
     </div>
-  </figcaption>
-</figure>
+    <figcaption class="photo-caption">
+      <h3 id={titleId} class="nav-title">{photo.data.title}</h3>
+      <p class="photo-description">{photo.data.description}</p>
+      <p class="meta photo-settings">{photo.data.cameraSettings}</p>
+    </figcaption>
+  </figure>
+</a>
+
+<style>
+.photo-link { display: block; min-width: 0; border: 1px solid var(--line); background: var(--surface); padding: .625rem; border-radius: .375rem; box-shadow: 0 3px 0 var(--line); }
+  .photo-figure { margin: 0; }
+  .photo-image { position: relative; overflow: hidden; background: var(--surface-2); }
+  .photo-image img { display: block; width: 100%; height: auto; }
+  .image-open { display: grid; place-items: center; position: absolute; right: .75rem; bottom: .75rem; min-height: 2rem; padding: .35rem .75rem; border: 1px solid rgb(255 255 255 / .6); border-radius: 999px; background: rgb(45 32 61 / .86); color: #fff; font-family: var(--font-sans); font-size: .6875rem; line-height: 1.4; }
+  .photo-caption { padding: 1rem .5rem .75rem; }
+  .photo-caption h3 { margin: 0; color: var(--text); font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; letter-spacing: -.025em; line-height: 1.25; }
+  .photo-description { margin-top: .5rem; color: var(--text-2); font-size: .875rem; line-height: 1.6; overflow-wrap: anywhere; }
+  .photo-settings { margin-top: .875rem; color: var(--muted); font-size: .75rem; line-height: 1.6; }
+  @media print { .photo-link { break-inside: avoid; box-shadow: none; } .image-open { display: none; } }
+</style>

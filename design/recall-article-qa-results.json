@@ -1,0 +1,250 @@
+{
+  "checks": [
+    {
+      "name": "light 1440 page reflows",
+      "passed": true,
+      "detail": {
+        "scroll": 1440,
+        "width": 1440,
+        "steps": 6,
+        "columns": "220.656px 220.672px 220.672px",
+        "headings": 1,
+        "links": true
+      }
+    },
+    {
+      "name": "light 1440 six diagram steps",
+      "passed": true
+    },
+    {
+      "name": "light 1440 mobile diagram uses one column",
+      "passed": true,
+      "detail": "220.656px 220.672px 220.672px"
+    },
+    {
+      "name": "light 1440 one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 1440 outline anchors resolve",
+      "passed": true
+    },
+    {
+      "name": "light 390 page reflows",
+      "passed": true,
+      "detail": {
+        "scroll": 390,
+        "width": 390,
+        "steps": 6,
+        "columns": "324px",
+        "headings": 1,
+        "links": true
+      }
+    },
+    {
+      "name": "light 390 six diagram steps",
+      "passed": true
+    },
+    {
+      "name": "light 390 mobile diagram uses one column",
+      "passed": true,
+      "detail": "324px"
+    },
+    {
+      "name": "light 390 one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 390 outline anchors resolve",
+      "passed": true
+    },
+    {
+      "name": "light 320 page reflows",
+      "passed": true,
+      "detail": {
+        "scroll": 320,
+        "width": 320,
+        "steps": 6,
+        "columns": "254px",
+        "headings": 1,
+        "links": true
+      }
+    },
+    {
+      "name": "light 320 six diagram steps",
+      "passed": true
+    },
+    {
+      "name": "light 320 mobile diagram uses one column",
+      "passed": true,
+      "detail": "254px"
+    },
+    {
+      "name": "light 320 one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 320 outline anchors resolve",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 page reflows",
+      "passed": true,
+      "detail": {
+        "scroll": 1440,
+        "width": 1440,
+        "steps": 6,
+        "columns": "220.656px 220.672px 220.672px",
+        "headings": 1,
+        "links": true
+      }
+    },
+    {
+      "name": "dark 1440 six diagram steps",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 mobile diagram uses one column",
+      "passed": true,
+      "detail": "220.656px 220.672px 220.672px"
+    },
+    {
+      "name": "dark 1440 one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 outline anchors resolve",
+      "passed": true
+    },
+    {
+      "name": "dark 390 page reflows",
+      "passed": true,
+      "detail": {
+        "scroll": 390,
+        "width": 390,
+        "steps": 6,
+        "columns": "324px",
+        "headings": 1,
+        "links": true
+      }
+    },
+    {
+      "name": "dark 390 six diagram steps",
+      "passed": true
+    },
+    {
+      "name": "dark 390 mobile diagram uses one column",
+      "passed": true,
+      "detail": "324px"
+    },
+    {
+      "name": "dark 390 one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 390 outline anchors resolve",
+      "passed": true
+    },
+    {
+      "name": "dark 320 page reflows",
+      "passed": true,
+      "detail": {
+        "scroll": 320,
+        "width": 320,
+        "steps": 6,
+        "columns": "254px",
+        "headings": 1,
+        "links": true
+      }
+    },
+    {
+      "name": "dark 320 six diagram steps",
+      "passed": true
+    },
+    {
+      "name": "dark 320 mobile diagram uses one column",
+      "passed": true,
+      "detail": "254px"
+    },
+    {
+      "name": "dark 320 one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 320 outline anchors resolve",
+      "passed": true
+    },
+    {
+      "name": "new article appears first in writing catalog",
+      "passed": true
+    },
+    {
+      "name": "new article appears on homepage",
+      "passed": true
+    },
+    {
+      "name": "mobile outline navigates to loop section",
+      "passed": true
+    },
+    {
+      "name": "capabilities table scrolls by keyboard",
+      "passed": true
+    },
+    {
+      "name": "article and diagram work without JavaScript",
+      "passed": true
+    },
+    {
+      "name": "print preserves the six diagram steps",
+      "passed": true
+    },
+    {
+      "name": "print uses white paper",
+      "passed": true
+    }
+  ],
+  "accessibility": [
+    {
+      "state": "light 1440",
+      "violations": []
+    },
+    {
+      "state": "light 390",
+      "violations": []
+    },
+    {
+      "state": "light 320",
+      "violations": []
+    },
+    {
+      "state": "dark 1440",
+      "violations": []
+    },
+    {
+      "state": "dark 390",
+      "violations": []
+    },
+    {
+      "state": "dark 320",
+      "violations": []
+    }
+  ],
+  "errors": [],
+  "summary": {
+    "checks": 37,
+    "failed": 0,
+    "accessibilityStates": 6,
+    "accessibilityFindings": 0,
+    "errors": 0
+  },
+  "build": {
+    "pages": 7,
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "links": {
+    "localReferences": 183,
+    "missing": 0
+  }
+}

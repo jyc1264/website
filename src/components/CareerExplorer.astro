@@ -1,0 +1,179 @@
+---
+import { milestones } from "../data/career";
+
+const chapterDefinitions = [
+  { item: milestones[2], id: "niantic", company: "Niantic", subject: "Games" },
+  { item: milestones[1], id: "payments", company: "Reddit", subject: "Payments" },
+  { item: milestones[0], id: "machine-learning", company: "Reddit", subject: "Machine learning" },
+];
+
+const compactPeriod = (period: string) => {
+  const [start, end] = period.split(" - ");
+  const startYear = start.match(/\d{4}/)?.[0] ?? start;
+  const endYear = end === "Present" ? "now" : (end?.match(/\d{4}/)?.[0]?.slice(-2) ?? end);
+  return `${startYear}–${endYear}`;
+};
+---
+
+<section id="experience" class="career-section" aria-label="Career">
+  <p class="career-caption">My career, so far.</p>
+  <career-explorer data-default-chapter="machine-learning">
+    <div class="career-tabs" data-career-tabs hidden>
+      {chapterDefinitions.map(({ item, id, company, subject }) => (
+        <button type="button" class="career-tab" id={`career-tab-${id}`} data-career-tab={id}>
+          <span class="tab-company">{company}</span>
+          <span class="tab-subject">{subject}</span>
+          <span class="tab-period">{compactPeriod(item.period)}</span>
+        </button>
+      ))}
+    </div>
+
+    <div class="career-pages">
+      {chapterDefinitions.map(({ item, id }) => (
+        <article class="career-page" id={`career-panel-${id}`} data-career-panel={id} aria-labelledby={`career-title-${id}`}>
+          <header class="chapter-header">
+            <div class="chapter-byline">
+              <p class="chapter-company">{item.company}</p>
+              <p class="chapter-period">{item.period}</p>
+            </div>
+            <h2 id={`career-title-${id}`}>{item.role}</h2>
+          </header>
+          {Array.isArray(item.description) ? (
+            <ul class="chapter-achievements">
+              {item.description.map((description) => <li>{description}</li>)}
+            </ul>
+          ) : (
+            <p class="chapter-description">{item.description}</p>
+          )}
+          {item.focus && item.focus.length > 0 && (
+            <ul class="chapter-focus" aria-label="Focus areas">
+              {item.focus.map((focus) => <li>{focus}</li>)}
+            </ul>
+          )}
+        </article>
+      ))}
+    </div>
+  </career-explorer>
+</section>
+
+<script>
+  class CareerExplorer extends HTMLElement {
+    private controller?: AbortController;
+
+    connectedCallback() {
+      this.controller?.abort();
+      this.controller = new AbortController();
+      const { signal } = this.controller;
+
+      // Defer until the element's complete contents have joined the document.
+      queueMicrotask(() => {
+        if (!this.isConnected || signal.aborted) return;
+        const tablist = this.querySelector<HTMLElement>("[data-career-tabs]");
+        const tabs = Array.from(this.querySelectorAll<HTMLButtonElement>("[data-career-tab]"));
+        const panels = Array.from(this.querySelectorAll<HTMLElement>("[data-career-panel]"));
+        if (!tablist || !tabs.length || tabs.length !== panels.length) return;
+
+        const selectChapter = (index: number, focus = false, animate = false) => {
+          tabs.forEach((tab, tabIndex) => {
+            const selected = tabIndex === index;
+            tab.setAttribute("aria-selected", String(selected));
+            tab.tabIndex = selected ? 0 : -1;
+            panels[tabIndex].hidden = !selected;
+          });
+          if (focus) tabs[index].focus();
+          if (animate && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            panels[index].getAnimations().forEach((animation) => animation.cancel());
+            panels[index].animate(
+              [{ opacity: 0.65, transform: "translateY(5px)" }, { opacity: 1, transform: "translateY(0)" }],
+              { duration: 180, easing: "ease-out" },
+            );
+          }
+        };
+
+        tablist.setAttribute("role", "tablist");
+        tablist.setAttribute("aria-label", "Career chapters");
+        tabs.forEach((tab, index) => {
+          tab.setAttribute("role", "tab");
+          tab.setAttribute("aria-controls", panels[index].id);
+          panels[index].setAttribute("role", "tabpanel");
+          panels[index].setAttribute("aria-labelledby", tab.id);
+          panels[index].tabIndex = 0;
+          tab.addEventListener("click", () => selectChapter(index, false, true), { signal });
+          tab.addEventListener("keydown", (event) => {
+            const moves: Record<string, number> = {
+              ArrowLeft: (index - 1 + tabs.length) % tabs.length,
+              ArrowRight: (index + 1) % tabs.length,
+              Home: 0,
+              End: tabs.length - 1,
+            };
+            const next = moves[event.key];
+            if (next === undefined) return;
+            event.preventDefault();
+            selectChapter(next, true, true);
+          }, { signal });
+        });
+        const requestedIndex = tabs.findIndex((tab) => tab.dataset.careerTab === this.dataset.defaultChapter);
+        selectChapter(requestedIndex < 0 ? tabs.length - 1 : requestedIndex);
+        this.dataset.enhanced = "true";
+        tablist.hidden = false;
+      });
+    }
+
+    disconnectedCallback() {
+      this.controller?.abort();
+    }
+  }
+
+  if (!customElements.get("career-explorer")) customElements.define("career-explorer", CareerExplorer);
+</script>
+
+<style>
+  .career-section { min-width: 0; scroll-margin-top: 7rem; }
+  .career-caption { margin: 0 0 1rem; color: var(--text); font-family: var(--font-display); font-size: 1.125rem; font-weight: 600; line-height: 1.4; }
+  career-explorer { display: block; min-width: 0; }
+  .career-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .625rem; margin-bottom: 1.25rem; }
+  .career-tab { display: grid; grid-template-columns: 1fr auto; gap: .125rem .5rem; align-content: start; min-width: 0; min-height: 76px; border: 1.5px solid var(--line-strong); border-radius: .75rem .75rem .25rem .25rem; padding: .625rem var(--inset-compact); background: var(--surface-2); color: var(--text); text-align: left; transition: background-color .15s, border-color .15s; }
+  .tab-company { font-family: var(--font-display); font-size: .9375rem; font-weight: 700; line-height: 1.4; }
+  .tab-subject { grid-column: 1 / -1; grid-row: 2; font-size: .75rem; line-height: 1.4; }
+  .tab-period { grid-column: 2; grid-row: 1; color: var(--text-2); font-size: .6875rem; line-height: 1.9; white-space: nowrap; }
+  .career-tab[aria-selected="true"] { border-color: var(--text); background: var(--chapter-yellow, #f7e19b); color: var(--text); box-shadow: 0 3px 0 var(--text); }
+  .career-tab[aria-selected="true"] .tab-period { color: var(--text-2); }
+  .career-tabs .career-tab:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+  .career-pages { position: relative; isolation: isolate; }
+  .career-pages::before { position: absolute; z-index: -1; inset: 8px -5px -6px 7px; border: 1.5px solid var(--line-strong); border-radius: .6rem 1.75rem .6rem .6rem; background: var(--chapter-pink, #f7c9dd); content: ""; transform: rotate(.65deg); }
+  .career-page { position: relative; min-width: 0; padding: 1.75rem; border: 1.5px solid var(--line-strong); border-radius: .6rem 1.75rem .6rem .6rem; background: var(--surface); color: var(--text); box-shadow: var(--paper-shadow, 4px 4px 0 rgb(45 32 61 / .12)); }
+  .career-page + .career-page { margin-top: 2rem; }
+  [data-enhanced] .career-page { min-height: 27.75rem; margin-top: 0; }
+  .chapter-byline { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .35rem 1rem; }
+  .chapter-company { color: var(--text); font-size: .9375rem; font-weight: 600; }
+  .chapter-period { color: var(--muted); font-size: .75rem; line-height: 1.6; }
+  .chapter-header h2 { max-width: 22ch; margin: .875rem 0 0; color: var(--text); font-family: var(--font-display); font-size: clamp(1.75rem, 2.8vw, 2.375rem); font-weight: 700; line-height: 1.08; letter-spacing: -.04em; }
+  .chapter-achievements { display: grid; gap: .75rem; margin: 1.25rem 0 0; padding-left: 1.1rem; list-style: disc; }
+  .chapter-achievements li, .chapter-description { padding-left: .2rem; color: var(--text-2); font-size: .875rem; line-height: 1.7; }
+  .chapter-achievements li::marker { color: var(--accent); }
+  .chapter-description { margin-top: 1.25rem; padding-left: 0; }
+  .chapter-focus { display: flex; flex-wrap: wrap; gap: .4rem .6rem; margin: 1.375rem 0 0; padding: 0; list-style: none; }
+  .chapter-focus li { border-bottom: 2px solid var(--line-strong); padding-bottom: .125rem; color: var(--muted); font-size: .6875rem; line-height: 1.5; }
+  @media (hover: hover) { .career-tab:not([aria-selected="true"]):hover { background: var(--hover); border-color: var(--text); } }
+  @media (max-width: 1100px) { .career-tab { grid-template-columns: 1fr; } .tab-period { grid-column: 1; grid-row: 3; } }
+  @media (max-width: 600px) {
+    .career-caption { margin-bottom: .875rem; }
+    .career-tabs { gap: .375rem; margin-bottom: 1rem; }
+    .career-tab { min-height: 95px; padding: .625rem .625rem; }
+    .tab-company { font-size: .875rem; }
+    .tab-subject { font-size: .6875rem; }
+    .tab-period { align-self: end; font-size: .625rem; }
+    .career-page { padding: 1.25rem var(--inset-row); }
+    [data-enhanced] .career-page { min-height: 0; }
+    .chapter-header h2 { max-width: 20ch; font-size: 1.75rem; }
+    .chapter-achievements { gap: .875rem; }
+    .chapter-achievements li { font-size: .875rem; }
+    .chapter-focus { margin-top: 1.25rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .career-tab { transition: none; } }
+  @media print {
+    .career-tabs { display: none !important; }
+    .career-pages::before { display: none; }
+    .career-page, .career-page[hidden] { display: block !important; min-height: 0; margin-top: 1.5rem; border: 1px solid #aaa; box-shadow: none; break-inside: avoid; }
+  }
+</style>

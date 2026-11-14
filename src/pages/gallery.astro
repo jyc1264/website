@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import { tripSlug } from "../utils/trips";
 import GalleryLightbox from "@components/GalleryLightbox.astro";
 import GalleryImage from "@components/GalleryImage.astro";
 
@@ -32,17 +33,12 @@ const extraTripTitles = Array.from(photosByTrip.keys())
   .filter((trip) => !knownTripOrder.includes(trip))
   .sort((a, b) => latestShotDateForTrip(b) - latestShotDateForTrip(a));
 
-const slugify = (value: string) =>
-  value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-
 const formatTripLabel = (value: string) => value.replace(/\s+-\s+Early Summer\s+\d{4}$/i, "");
 
 const dateFormatter = new Intl.DateTimeFormat("en", {
   month: "short",
   year: "numeric",
+  timeZone: "UTC",
 });
 
 const formatDateRange = (groupPhotos: PhotoEntry[]) => {
@@ -68,7 +64,7 @@ const tripGroups: TripGroup[] = [
 ].map((trip) => ({
   title: trip,
   displayTitle: formatTripLabel(trip),
-  slug: slugify(trip),
+  slug: tripSlug(trip),
   photos: [...(photosByTrip.get(trip) ?? [])].sort(
     (a, b) => b.data.shotDate.valueOf() - a.data.shotDate.valueOf(),
   ),
@@ -79,63 +75,66 @@ const photoIndexById = new Map(carouselPhotos.map((photo, index) => [photo.id, i
 ---
 
 <BaseLayout title="Photography" description="Photography portfolio by John Choi.">
-  <section class="grid gap-10 py-16 sm:py-20 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end">
+  <section class="page-intro gallery-intro" aria-labelledby="gallery-heading">
     <div>
-      <p class="meta-label font-mono text-xs text-[#d9c8ad]">Photography</p>
-      <h1 class="mt-5 max-w-4xl text-5xl font-medium leading-tight text-[#fffaf0] sm:text-7xl">
-        <span class="block">Snapshots of my life,</span>
-        <span class="block">aesthetic views,</span>
-        <span class="block">and things I love.</span>
-      </h1>
-      <p class="mt-8 max-w-2xl text-xl leading-9 text-[#e8d9c4]">
+      <p class="eyebrow">Photography</p>
+      <h1 id="gallery-heading" class="page-title">Snapshots of my life, aesthetic views, and things I love.</h1>
+      <p class="lede">
         Used to shoot on a Sony a6700 with a Sigma 18-50mm f/2.8 lens but now I shoot on a FujiFilm x100vi. Playing around with some Film Recipes.
       </p>
     </div>
-    <nav class="w-full border-y border-[#fff8ea]/18 lg:justify-self-end lg:text-right" aria-label="Photography trips">
+    <nav class="trip-nav" aria-label="Photography trips">
+      <p class="eyebrow trip-nav-label">The collections</p>
       {tripGroups.map((group) => (
-        <a
-          class="group grid grid-cols-[minmax(0,1fr)_1rem] items-center gap-3 border-b border-[#fff8ea]/14 py-2.5 font-mono text-xs transition last:border-b-0 hover:bg-[#fff8ea]/8 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#fff8ea]"
-          href={`#${group.slug}`}
-        >
-          <span class="min-w-0">
-            <span class="block truncate font-serif text-base leading-tight text-[#fffaf0] transition group-hover:text-white">
-              {group.displayTitle}
-            </span>
-            <span class="mt-1 block text-[0.68rem] text-[#d9c8ad]">
-              {group.photos.length} frames · {formatDateRange(group.photos)}
-            </span>
+        <a class="nav-region trip-link" href={`#${group.slug}`} aria-labelledby={`trip-link-${group.slug}`}>
+          <span>
+            <span id={`trip-link-${group.slug}`} class="nav-title trip-link-title">{group.displayTitle}</span>
+            <span class="meta trip-link-meta">{group.photos.length} frames · {formatDateRange(group.photos)}</span>
           </span>
-          <span class="text-right text-[#d9c8ad] transition group-hover:translate-y-0.5 group-hover:text-white" aria-hidden="true">
-            ↓
-          </span>
+          <span class="trip-arrow" aria-hidden="true">↓</span>
         </a>
       ))}
     </nav>
   </section>
 
-  <section class="section-rule py-12">
-    <div class="space-y-16">
-      {tripGroups.map((group) => (
-        <section id={group.slug} class="scroll-mt-24 space-y-6" aria-labelledby={`${group.slug}-title`}>
-          <div class="flex flex-col gap-3 border-b border-[#fff8ea]/20 pb-5 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p class="meta-label font-mono text-[0.68rem] text-[#d9c8ad]">Trip</p>
-              <h2 id={`${group.slug}-title`} class="mt-2 text-3xl font-medium leading-tight text-[#fffaf0] sm:text-4xl">
-                {group.displayTitle}
-              </h2>
-            </div>
-            <p class="font-mono text-xs text-[#d9c8ad]">
-              {group.photos.length} frames · {formatDateRange(group.photos)}
-            </p>
+  <div class="trip-collections">
+    {tripGroups.map((group) => (
+      <section id={group.slug} class="trip-collection" aria-labelledby={`${group.slug}-title`}>
+        <header class="collection-heading">
+          <div>
+            <h2 id={`${group.slug}-title`}>{group.displayTitle}</h2>
           </div>
-          <div class="grid grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {group.photos.map((photo) => (
-              <GalleryImage photo={photo} index={photoIndexById.get(photo.id) ?? 0} />
-            ))}
-          </div>
-        </section>
-      ))}
-    </div>
-  </section>
+          <p class="meta">{group.photos.length} frames · {formatDateRange(group.photos)}</p>
+        </header>
+        <div class="photo-grid">
+          {group.photos.map((photo) => (
+            <GalleryImage photo={photo} index={photoIndexById.get(photo.id) ?? 0} />
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
   <GalleryLightbox photos={carouselPhotos} />
 </BaseLayout>
+
+<style>
+.gallery-intro { display: grid; gap: 2.5rem; align-items: end; }
+  .gallery-intro .page-title { max-width: 20ch; }
+  .gallery-intro .lede { max-width: 60ch; margin-top: 1.5rem; }
+  .trip-nav { min-width: 0; padding: .5rem; border-radius: 1.25rem; background: var(--surface); }
+  .trip-nav-label { margin: .5rem 0 .5rem var(--inset-row); }
+  .trip-link { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem var(--inset-row); border: 1px solid transparent; border-radius: .875rem; }
+  .trip-link > span:first-child { min-width: 0; }
+  .trip-link-title { display: block; font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; }
+  .trip-link-meta { display: block; margin-top: .375rem; font-size: .8125rem; }
+  .trip-arrow { flex: none; color: var(--accent); font-size: 1.125rem; }
+  .trip-collections { display: grid; gap: 5rem; padding-bottom: 4rem; }
+  .trip-collection { scroll-margin-top: 7rem; min-width: 0; }
+  .collection-heading { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+  .collection-heading h2 { font-family: var(--font-display); font-size: clamp(2rem, 3vw, 2.75rem); font-weight: 650; letter-spacing: -.035em; line-height: 1.1; }
+  .collection-heading .meta { font-size: .8125rem; }
+  .photo-grid { display: grid; align-items: start; gap: 2rem 1.5rem; }
+  @media (min-width: 640px) { .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .gallery-intro { grid-template-columns: minmax(0, 1fr) 19rem; gap: 5rem; } .photo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media print { .trip-nav { display: none; } .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

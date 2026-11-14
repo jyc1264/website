@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import "@styles/article-diagrams.css";
 
 export async function getStaticPaths() {
   const posts = await getCollection("tech");
@@ -21,66 +22,98 @@ const formattedDate = new Intl.DateTimeFormat("en", {
   month: "long",
   day: "numeric",
   year: "numeric",
+  timeZone: "UTC",
 }).format(post.data.pubDate);
 const tableOfContents = headings.filter((heading) => heading.depth >= 2 && heading.depth <= 3);
 const hasTableOfContents = tableOfContents.length > 1;
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
-  <div
-    class:list={[
-      "mx-auto grid grid-cols-1 gap-10 py-16 sm:py-20",
-      hasTableOfContents
-        ? "max-w-6xl lg:grid-cols-[12rem_minmax(0,48rem)] lg:justify-center lg:gap-12 xl:grid-cols-[14rem_minmax(0,48rem)]"
-        : "max-w-3xl",
-    ]}
-  >
+  <div class:list={["article-layout", hasTableOfContents && "has-outline"]}>
+    <article class="article">
+      <a class="section-link article-back" href="/blog/">
+        <span aria-hidden="true">←</span> Back to blog
+      </a>
+      <header class="article-header">
+        <p class="article-meta meta">
+          <span class="article-category">{post.data.category}</span>
+          <time datetime={post.data.pubDate.toISOString().slice(0, 10)}>{formattedDate}</time>
+        </p>
+        <h1 class="article-title">{post.data.title}</h1>
+        <p class="article-description">{post.data.description}</p>
+        <ul class="article-tags" aria-label="Topics">
+          {post.data.tags.map((tag) => <li class="tag">{tag}</li>)}
+        </ul>
+      </header>
+
+      {hasTableOfContents && (
+        <details class="mobile-outline">
+          <summary>On this page</summary>
+          <nav aria-label="Article sections">
+            <ol class="outline-list">
+              {tableOfContents.map((heading) => (
+                <li class:list={[heading.depth === 3 && "outline-subsection"]}>
+                  <a class="nav-region" href={`#${heading.slug}`}><span class="nav-title">{heading.text}</span></a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </details>
+      )}
+
+      <div class="prose-portfolio article-body">
+        <Content />
+      </div>
+      <footer class="article-footer">
+        <a class="section-link" href="/blog/"><span aria-hidden="true">←</span> All articles</a>
+      </footer>
+    </article>
+
     {hasTableOfContents && (
-      <aside class="sticky top-28 hidden max-h-[calc(100vh-8rem)] self-start overflow-y-auto pt-16 lg:block">
-        <nav class="border-l border-[#fff8ea]/18 pl-4" aria-label="Table of contents">
-          <p class="meta-label font-mono text-[0.65rem] text-[#d9c8ad]">On this page</p>
-          <ol class="mt-4 space-y-2.5 font-mono text-[0.72rem] leading-5 text-[#e8d9c4]/72">
+      <aside class="desktop-outline">
+        <nav aria-label="Article sections">
+          <p class="eyebrow outline-label">On this page</p>
+          <ol class="outline-list">
             {tableOfContents.map((heading) => (
-              <li class:list={[heading.depth === 3 && "pl-3"]}>
-                <a
-                  class="block border-l border-transparent pl-3 transition hover:border-[#fff8ea]/45 hover:text-[#fffaf0]"
-                  href={`#${heading.slug}`}
-                >
-                  {heading.text}
-                </a>
+              <li class:list={[heading.depth === 3 && "outline-subsection"]}>
+                <a class="nav-region" href={`#${heading.slug}`}><span class="nav-title">{heading.text}</span></a>
               </li>
             ))}
           </ol>
         </nav>
       </aside>
     )}
-    <article class="min-w-0 max-w-3xl">
-      <a
-        class="inline-flex items-center gap-2 rounded-full border border-[#fff8ea]/20 bg-[#3b3029]/45 px-3 py-1.5 font-mono text-xs text-[#e8d9c4] transition hover:border-[#fff8ea]/45 hover:bg-[#fff8ea] hover:text-[#4e4037] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[#fff8ea]"
-        href="/blog/"
-        aria-label="Back to blog catalog"
-      >
-        <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M9.5 3.75 5.25 8l4.25 4.25" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M5.75 8h5.5" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
-        </svg>
-        Back to blog
-      </a>
-      <header class="mt-8 border-b border-[#fff8ea]/20 pb-10">
-        <p class="meta-label font-mono text-xs text-[#d9c8ad]">{post.data.category} · {formattedDate}</p>
-        <h1 class="mt-5 text-5xl font-medium leading-tight text-[#fffaf0] sm:text-6xl">{post.data.title}</h1>
-        <p class="mt-6 text-xl leading-8 text-[#e8d9c4]">{post.data.description}</p>
-        <div class="mt-6 flex flex-wrap gap-2">
-          {post.data.tags.map((tag) => (
-            <span class="border border-[#fff8ea]/18 bg-[#3b3029]/60 px-2 py-1 font-mono text-[0.68rem] text-[#d9c8ad]">
-              {tag}
-            </span>
-          ))}
-        </div>
-      </header>
-      <div class="prose-portfolio mt-10">
-        <Content />
-      </div>
-    </article>
   </div>
 </BaseLayout>
+
+<style>
+.article-layout { max-width: 48rem; margin: 0 auto; padding: 2rem 0 4rem; }
+  .article { min-width: 0; }
+  .article-back { margin-left: calc(-1 * var(--inset-compact)); }
+  .article-header { margin-top: 2rem; padding-bottom: 2.25rem; }
+  .article-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; }
+  .article-category { padding: .2rem .75rem; border-radius: 999px; background: var(--chapter-yellow); color: var(--text); font-size: .8125rem; }
+  .article-title { margin: 1.125rem 0 0; font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 4rem); font-weight: 700; letter-spacing: -.045em; line-height: 1.04; text-wrap: pretty; }
+  .article-description { margin-top: 1.5rem; color: var(--text-2); font-size: 1.125rem; line-height: 1.75; }
+  .article-tags { display: flex; flex-wrap: wrap; gap: .375rem .625rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }
+  .article-body { margin-top: .75rem; }
+  .article-footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+  .desktop-outline { display: none; }
+  .mobile-outline { margin-top: .5rem; margin-bottom: 2rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--surface); }
+  .mobile-outline summary { padding: var(--inset-row); color: var(--text-2); cursor: pointer; font-size: .9375rem; font-weight: 500; }
+  .mobile-outline nav { padding: 0 .5rem .5rem; }
+  .outline-list { margin: 0; padding: 0; list-style: none; }
+  .outline-list a { display: block; border-radius: .625rem; padding: .75rem var(--inset-compact); color: var(--text-2); font-size: .875rem; line-height: 1.55; text-decoration: none; }
+  .outline-subsection { margin-left: .75rem; }
+  .outline-label { margin: 0 0 .625rem; padding: 0 var(--inset-compact); }
+  @media (min-width: 1024px) {
+    .article-layout.has-outline { display: grid; grid-template-columns: minmax(0, 46rem) minmax(11rem, 14rem); align-items: start; gap: clamp(2rem, 4vw, 4rem); max-width: none; }
+    .desktop-outline { position: sticky; top: 7rem; display: block; max-height: calc(100vh - 9rem); overflow-y: auto; margin-top: 5rem; padding-left: var(--inset-row); }
+    .mobile-outline { display: none; }
+  }
+  @media print {
+    .article-layout, .article-layout.has-outline { display: block; max-width: none; padding: 0; }
+    .article-back, .desktop-outline, .mobile-outline, .article-footer { display: none; }
+    .article-header { margin-top: 0; }
+  }
+</style>

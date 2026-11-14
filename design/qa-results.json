@@ -1,0 +1,1269 @@
+{
+  "assertions": [
+    {
+      "name": "dark 1440 / reflows",
+      "passed": true,
+      "detail": {
+        "width": 1440,
+        "scroll": 1440,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 1440 / one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 / no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 / theme",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 / unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 1440 /blog/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 1440,
+        "scroll": 1440,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 1440 /blog/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /blog/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /blog/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /blog/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 1440 /gallery/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 1440,
+        "scroll": 1440,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 1440 /gallery/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /gallery/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /gallery/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /gallery/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 1440 /blog/tech/how-modern-recommendation-systems-recommend/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 1440,
+        "scroll": 1440,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 1440 /blog/tech/how-modern-recommendation-systems-recommend/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /blog/tech/how-modern-recommendation-systems-recommend/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /blog/tech/how-modern-recommendation-systems-recommend/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /blog/tech/how-modern-recommendation-systems-recommend/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 1440 /blog/tech/scalable-rag-evaluation/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 1440,
+        "scroll": 1440,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 1440 /blog/tech/scalable-rag-evaluation/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /blog/tech/scalable-rag-evaluation/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /blog/tech/scalable-rag-evaluation/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /blog/tech/scalable-rag-evaluation/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 1440 /blog/tech/photographing-vector-spaces/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 1440,
+        "scroll": 1440,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 1440 /blog/tech/photographing-vector-spaces/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /blog/tech/photographing-vector-spaces/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /blog/tech/photographing-vector-spaces/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 /blog/tech/photographing-vector-spaces/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 390 / reflows",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scroll": 390,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 390 / one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 390 / no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 390 / theme",
+      "passed": true
+    },
+    {
+      "name": "dark 390 / unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 390 /blog/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scroll": 390,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 390 /blog/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /blog/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /blog/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /blog/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 390 /gallery/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scroll": 390,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 390 /gallery/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /gallery/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /gallery/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /gallery/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 390 /blog/tech/how-modern-recommendation-systems-recommend/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scroll": 390,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 390 /blog/tech/how-modern-recommendation-systems-recommend/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /blog/tech/how-modern-recommendation-systems-recommend/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /blog/tech/how-modern-recommendation-systems-recommend/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /blog/tech/how-modern-recommendation-systems-recommend/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 390 /blog/tech/scalable-rag-evaluation/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scroll": 390,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 390 /blog/tech/scalable-rag-evaluation/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /blog/tech/scalable-rag-evaluation/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /blog/tech/scalable-rag-evaluation/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /blog/tech/scalable-rag-evaluation/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 390 /blog/tech/photographing-vector-spaces/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scroll": 390,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 390 /blog/tech/photographing-vector-spaces/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /blog/tech/photographing-vector-spaces/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /blog/tech/photographing-vector-spaces/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 390 /blog/tech/photographing-vector-spaces/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 320 / reflows",
+      "passed": true,
+      "detail": {
+        "width": 320,
+        "scroll": 320,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 320 / one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 320 / no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 320 / theme",
+      "passed": true
+    },
+    {
+      "name": "dark 320 / unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 320 /blog/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 320,
+        "scroll": 320,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 320 /blog/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /blog/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /blog/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /blog/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 320 /gallery/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 320,
+        "scroll": 320,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 320 /gallery/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /gallery/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /gallery/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /gallery/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 320 /blog/tech/how-modern-recommendation-systems-recommend/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 320,
+        "scroll": 320,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 320 /blog/tech/how-modern-recommendation-systems-recommend/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /blog/tech/how-modern-recommendation-systems-recommend/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /blog/tech/how-modern-recommendation-systems-recommend/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /blog/tech/how-modern-recommendation-systems-recommend/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 320 /blog/tech/scalable-rag-evaluation/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 320,
+        "scroll": 320,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 320 /blog/tech/scalable-rag-evaluation/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /blog/tech/scalable-rag-evaluation/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /blog/tech/scalable-rag-evaluation/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /blog/tech/scalable-rag-evaluation/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "dark 320 /blog/tech/photographing-vector-spaces/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 320,
+        "scroll": 320,
+        "h1": 1,
+        "nested": 0,
+        "theme": "dark"
+      }
+    },
+    {
+      "name": "dark 320 /blog/tech/photographing-vector-spaces/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /blog/tech/photographing-vector-spaces/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /blog/tech/photographing-vector-spaces/ theme",
+      "passed": true
+    },
+    {
+      "name": "dark 320 /blog/tech/photographing-vector-spaces/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 1440 / reflows",
+      "passed": true,
+      "detail": {
+        "width": 1440,
+        "scroll": 1440,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 1440 / one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 1440 / no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 1440 / theme",
+      "passed": true
+    },
+    {
+      "name": "light 1440 / unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 1440 /blog/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 1440,
+        "scroll": 1440,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 1440 /blog/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /blog/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /blog/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /blog/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 1440 /gallery/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 1440,
+        "scroll": 1440,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 1440 /gallery/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /gallery/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /gallery/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /gallery/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 1440 /blog/tech/how-modern-recommendation-systems-recommend/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 1440,
+        "scroll": 1440,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 1440 /blog/tech/how-modern-recommendation-systems-recommend/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /blog/tech/how-modern-recommendation-systems-recommend/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /blog/tech/how-modern-recommendation-systems-recommend/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /blog/tech/how-modern-recommendation-systems-recommend/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 1440 /blog/tech/scalable-rag-evaluation/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 1440,
+        "scroll": 1440,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 1440 /blog/tech/scalable-rag-evaluation/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /blog/tech/scalable-rag-evaluation/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /blog/tech/scalable-rag-evaluation/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /blog/tech/scalable-rag-evaluation/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 1440 /blog/tech/photographing-vector-spaces/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 1440,
+        "scroll": 1440,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 1440 /blog/tech/photographing-vector-spaces/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /blog/tech/photographing-vector-spaces/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /blog/tech/photographing-vector-spaces/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 1440 /blog/tech/photographing-vector-spaces/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 390 / reflows",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scroll": 390,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 390 / one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 390 / no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 390 / theme",
+      "passed": true
+    },
+    {
+      "name": "light 390 / unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 390 /blog/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scroll": 390,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 390 /blog/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 390 /blog/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 390 /blog/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 390 /blog/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 390 /gallery/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scroll": 390,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 390 /gallery/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 390 /gallery/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 390 /gallery/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 390 /gallery/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 390 /blog/tech/how-modern-recommendation-systems-recommend/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scroll": 390,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 390 /blog/tech/how-modern-recommendation-systems-recommend/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 390 /blog/tech/how-modern-recommendation-systems-recommend/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 390 /blog/tech/how-modern-recommendation-systems-recommend/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 390 /blog/tech/how-modern-recommendation-systems-recommend/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 390 /blog/tech/scalable-rag-evaluation/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scroll": 390,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 390 /blog/tech/scalable-rag-evaluation/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 390 /blog/tech/scalable-rag-evaluation/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 390 /blog/tech/scalable-rag-evaluation/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 390 /blog/tech/scalable-rag-evaluation/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 390 /blog/tech/photographing-vector-spaces/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scroll": 390,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 390 /blog/tech/photographing-vector-spaces/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 390 /blog/tech/photographing-vector-spaces/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 390 /blog/tech/photographing-vector-spaces/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 390 /blog/tech/photographing-vector-spaces/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 320 / reflows",
+      "passed": true,
+      "detail": {
+        "width": 320,
+        "scroll": 320,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 320 / one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 320 / no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 320 / theme",
+      "passed": true
+    },
+    {
+      "name": "light 320 / unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 320 /blog/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 320,
+        "scroll": 320,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 320 /blog/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 320 /blog/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 320 /blog/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 320 /blog/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 320 /gallery/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 320,
+        "scroll": 320,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 320 /gallery/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 320 /gallery/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 320 /gallery/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 320 /gallery/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 320 /blog/tech/how-modern-recommendation-systems-recommend/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 320,
+        "scroll": 320,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 320 /blog/tech/how-modern-recommendation-systems-recommend/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 320 /blog/tech/how-modern-recommendation-systems-recommend/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 320 /blog/tech/how-modern-recommendation-systems-recommend/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 320 /blog/tech/how-modern-recommendation-systems-recommend/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 320 /blog/tech/scalable-rag-evaluation/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 320,
+        "scroll": 320,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 320 /blog/tech/scalable-rag-evaluation/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 320 /blog/tech/scalable-rag-evaluation/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 320 /blog/tech/scalable-rag-evaluation/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 320 /blog/tech/scalable-rag-evaluation/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "light 320 /blog/tech/photographing-vector-spaces/ reflows",
+      "passed": true,
+      "detail": {
+        "width": 320,
+        "scroll": 320,
+        "h1": 1,
+        "nested": 0,
+        "theme": "light"
+      }
+    },
+    {
+      "name": "light 320 /blog/tech/photographing-vector-spaces/ one main heading",
+      "passed": true
+    },
+    {
+      "name": "light 320 /blog/tech/photographing-vector-spaces/ no nested controls",
+      "passed": true
+    },
+    {
+      "name": "light 320 /blog/tech/photographing-vector-spaces/ theme",
+      "passed": true
+    },
+    {
+      "name": "light 320 /blog/tech/photographing-vector-spaces/ unique ids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "hover does not change region geometry",
+      "passed": true
+    },
+    {
+      "name": "native anchor and concise title name",
+      "passed": true
+    },
+    {
+      "name": "keyboard focus is visible",
+      "passed": true
+    },
+    {
+      "name": "article title and arrow remain inset",
+      "passed": true,
+      "detail": {
+        "titleLeft": 25,
+        "arrowRight": 25,
+        "padding": 24
+      }
+    },
+    {
+      "name": "card padding navigates",
+      "passed": true
+    },
+    {
+      "name": "gallery round 0 has all photos",
+      "passed": true
+    },
+    {
+      "name": "gallery round 0 opens on padded area",
+      "passed": true
+    },
+    {
+      "name": "gallery round 0 arrows change photo",
+      "passed": true
+    },
+    {
+      "name": "gallery round 0 previous restores photo",
+      "passed": true
+    },
+    {
+      "name": "gallery round 0 escape restores focus",
+      "passed": true
+    },
+    {
+      "name": "gallery round 0 restores scrolling",
+      "passed": true
+    },
+    {
+      "name": "gallery round 1 has all photos",
+      "passed": true
+    },
+    {
+      "name": "gallery round 1 opens on padded area",
+      "passed": true
+    },
+    {
+      "name": "gallery round 1 arrows change photo",
+      "passed": true
+    },
+    {
+      "name": "gallery round 1 previous restores photo",
+      "passed": true
+    },
+    {
+      "name": "gallery round 1 escape restores focus",
+      "passed": true
+    },
+    {
+      "name": "gallery round 1 restores scrolling",
+      "passed": true
+    },
+    {
+      "name": "theme persists on client navigation",
+      "passed": true
+    },
+    {
+      "name": "mobile dialog fits viewport",
+      "passed": true,
+      "detail": {
+        "width": 320,
+        "height": 740,
+        "scrollWidth": 320
+      }
+    },
+    {
+      "name": "mobile close control is at least44px",
+      "passed": true,
+      "detail": {
+        "x": 260,
+        "y": 12,
+        "width": 44,
+        "height": 44
+      }
+    },
+    {
+      "name": "mobile prev control is at least44px",
+      "passed": true,
+      "detail": {
+        "x": 16,
+        "y": 684,
+        "width": 101.75,
+        "height": 44
+      }
+    },
+    {
+      "name": "mobile next control is at least44px",
+      "passed": true,
+      "detail": {
+        "x": 226.234375,
+        "y": 684,
+        "width": 77.765625,
+        "height": 44
+      }
+    },
+    {
+      "name": "mobile next works",
+      "passed": true
+    },
+    {
+      "name": "mobile outline links to actual section",
+      "passed": true
+    },
+    {
+      "name": "reduced motion disables smooth scrolling",
+      "passed": true
+    },
+    {
+      "name": "no-JS photo destination returns an image",
+      "passed": true
+    },
+    {
+      "name": "no-JS article navigation works",
+      "passed": true
+    }
+  ],
+  "accessibility": [
+    {
+      "state": "dark 1440 /",
+      "violations": []
+    },
+    {
+      "state": "dark 1440 /blog/",
+      "violations": []
+    },
+    {
+      "state": "dark 1440 /gallery/",
+      "violations": []
+    },
+    {
+      "state": "dark 1440 /blog/tech/how-modern-recommendation-systems-recommend/",
+      "violations": []
+    },
+    {
+      "state": "dark 1440 /blog/tech/scalable-rag-evaluation/",
+      "violations": []
+    },
+    {
+      "state": "dark 1440 /blog/tech/photographing-vector-spaces/",
+      "violations": []
+    },
+    {
+      "state": "dark 390 /",
+      "violations": []
+    },
+    {
+      "state": "dark 390 /blog/",
+      "violations": []
+    },
+    {
+      "state": "dark 390 /gallery/",
+      "violations": []
+    },
+    {
+      "state": "dark 390 /blog/tech/how-modern-recommendation-systems-recommend/",
+      "violations": []
+    },
+    {
+      "state": "dark 390 /blog/tech/scalable-rag-evaluation/",
+      "violations": []
+    },
+    {
+      "state": "dark 390 /blog/tech/photographing-vector-spaces/",
+      "violations": []
+    },
+    {
+      "state": "light 1440 /",
+      "violations": []
+    },
+    {
+      "state": "light 1440 /blog/",
+      "violations": []
+    },
+    {
+      "state": "light 1440 /gallery/",
+      "violations": []
+    },
+    {
+      "state": "light 1440 /blog/tech/how-modern-recommendation-systems-recommend/",
+      "violations": []
+    },
+    {
+      "state": "light 1440 /blog/tech/scalable-rag-evaluation/",
+      "violations": []
+    },
+    {
+      "state": "light 1440 /blog/tech/photographing-vector-spaces/",
+      "violations": []
+    }
+  ],
+  "errors": [],
+  "measurements": [
+    {
+      "name": "article-card inset",
+      "titleLeft": 25,
+      "arrowRight": 25,
+      "padding": 24
+    }
+  ],
+  "summary": {
+    "assertions": 207,
+    "failed": 0,
+    "axeStates": 18,
+    "axeViolations": 0,
+    "pageErrors": 0
+  },
+  "finalChecks": {
+    "print": {
+      "background": "rgb(255, 255, 255)",
+      "text": "rgb(17, 17, 17)",
+      "header": "none",
+      "outline": "none"
+    },
+    "keyboardTable": {
+      "tabIndex": 0,
+      "scrollLeft": 1,
+      "scrollWidth": 581,
+      "clientWidth": 358
+    }
+  },
+  "contentPreservation": {
+    "unchangedFiles": 49,
+    "articles": 3,
+    "photographRecords": 21,
+    "careerDataMatchesOriginal": true
+  },
+  "build": {
+    "pages": 6,
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "links": {
+    "references": 146,
+    "pages": 6,
+    "missing": 0
+  }
+}

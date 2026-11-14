@@ -1,0 +1,80 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import { getPhotoAsset } from "../utils/photoAssets";
+import { tripSlug } from "../utils/trips";
+
+const photos = await getCollection("photos");
+const favorites = ["DSCF2001.JPG", "DSC04479.JPG", "DSCF2415.JPG"]
+  .flatMap((name) => photos.filter((photo) => photo.data.imageSrc.endsWith(name)));
+---
+
+<photo-stack>
+  <div class="photo-pile">
+    {favorites.map((photo, index) => (
+      <a class="photo-print nav-region" href={`/gallery/#${tripSlug(photo.data.trip)}`} aria-labelledby={`stack-${photo.id}`} data-photo-print data-photo-title={photo.data.title} data-active={index === 0 ? "true" : undefined}>
+        <figure>
+          <Image src={getPhotoAsset(photo.data.imageSrc)} alt={photo.data.title} width={720} widths={[360, 540, 720, 960]} sizes="(min-width: 900px) 30rem, calc(100vw - 4rem)" format="webp" loading="lazy" />
+          <figcaption><h3 class="nav-title" id={`stack-${photo.id}`}>{photo.data.title}</h3><p>{photo.data.description}</p></figcaption>
+        </figure>
+      </a>
+    ))}
+  </div>
+  <div class="stack-controls" data-photo-controls hidden>
+    <span class="meta" data-photo-position>1 of {favorites.length}</span>
+    <button type="button" class="shuffle-button" data-photo-shuffle>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6h3c4 0 6 12 10 12h3m-4-4 4 4-4 4M4 18h3c1.5 0 3-2 4-4m2-4c1-2 2.5-4 4-4h3m-4-4 4 4-4 4"/></svg>
+      Another frame
+    </button>
+  </div>
+  <p class="sr-only" aria-live="polite" aria-atomic="true" data-photo-announcement></p>
+</photo-stack>
+
+<script>
+  class PhotoStack extends HTMLElement {
+    private controller?: AbortController;
+
+    connectedCallback() {
+      this.controller?.abort();
+      this.controller = new AbortController();
+      const prints = Array.from(this.querySelectorAll<HTMLAnchorElement>("[data-photo-print]"));
+      const controls = this.querySelector<HTMLElement>("[data-photo-controls]");
+      const counter = this.querySelector("[data-photo-position]");
+      const announcement = this.querySelector("[data-photo-announcement]");
+      if (!prints.length || !controls) return;
+      let active = 0;
+      this.dataset.enhanced = "true";
+      controls.hidden = false;
+      this.querySelector("[data-photo-shuffle]")?.addEventListener("click", () => {
+        prints[active].removeAttribute("data-active");
+        active = (active + 1) % prints.length;
+        prints[active].dataset.active = "true";
+        if (counter) counter.textContent = `${active + 1} of ${prints.length}`;
+        if (announcement) announcement.textContent = `${prints[active].dataset.photoTitle}, photograph ${active + 1} of ${prints.length}`;
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          prints[active].animate([{ opacity: .35, transform: "rotate(-2deg)" }, { opacity: 1, transform: "rotate(0)" }], { duration: 220, easing: "ease-out" });
+        }
+      }, { signal: this.controller.signal });
+    }
+
+    disconnectedCallback() { this.controller?.abort(); }
+  }
+  if (!customElements.get("photo-stack")) customElements.define("photo-stack", PhotoStack);
+</script>
+
+<style>
+  photo-stack { display: block; min-width: 0; }
+  .photo-pile { position: relative; isolation: isolate; display: grid; gap: 2rem; margin: 1.25rem .75rem 0; }
+  .photo-pile::before, .photo-pile::after { content: ""; position: absolute; z-index: -1; inset: 0; border: 1px solid var(--line-strong); border-radius: .35rem; background: var(--chapter-pink); transform: rotate(-3deg); }
+  .photo-pile::after { background: var(--chapter-yellow); transform: rotate(3deg); }
+  .photo-print { display: block; padding: .75rem; border: 1px solid var(--text); border-radius: .35rem; background: var(--surface); color: var(--text); }
+  [data-enhanced] .photo-print:not([data-active]) { display: none; }
+  .photo-print img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: .125rem; }
+  .photo-print figcaption { padding: 1rem .375rem .375rem; }
+  .photo-print h3 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; letter-spacing: -.025em; }
+  .photo-print p { margin-top: .25rem; color: var(--muted); font-size: .8125rem; }
+  .stack-controls { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 1.75rem .75rem 0; }
+  .shuffle-button { display: inline-flex; align-items: center; justify-content: center; gap: .625rem; min-height: 44px; padding: .625rem 1rem; border: 1px solid var(--text); border-radius: 999px; background: var(--chapter-yellow); color: var(--text); font-size: .875rem; font-weight: 500; }
+  @media (hover: hover) { .shuffle-button:hover { background: var(--surface); } }
+  @media print { .stack-controls { display: none; } .photo-pile::before, .photo-pile::after { display: none; } }
+</style>

@@ -1,0 +1,86 @@
+/* Semantic diagrams reflow with the article instead of shrinking image text. */
+.process-diagram {
+  margin-block: 2rem;
+  padding: var(--inset-panel);
+  border: 1px solid var(--line-strong);
+  border-radius: .75rem;
+  background: var(--surface);
+}
+.process-diagram > figcaption {
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -.025em;
+}
+.process-diagram > ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .75rem;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: process-step;
+}
+.process-diagram > ol > li {
+  min-width: 0;
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: .5rem;
+  background: var(--bg);
+  counter-increment: process-step;
+}
+.process-diagram > ol > li::before {
+  content: counter(process-step);
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-bottom: .875rem;
+  border-radius: 50%;
+  background: var(--chapter-yellow);
+  color: var(--text);
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1;
+}
+.process-diagram li > strong {
+  display: block;
+  color: var(--text);
+  font-size: .9375rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.process-diagram li > span {
+  display: block;
+  margin-top: .5rem;
+  color: var(--text-2);
+  font-size: .875rem;
+  line-height: 1.65;
+}
+.process-diagram > .process-return {
+  display: flex;
+  align-items: baseline;
+  gap: .625rem;
+  margin: 1.25rem 0 0;
+  color: var(--text-2);
+  font-size: .875rem;
+  line-height: 1.6;
+}
+.process-return > span { color: var(--accent); font-size: 1.25rem; }
+@media (max-width: 650px) {
+  .process-diagram { padding: var(--inset-row); }
+  .process-diagram > ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 450px) {
+  .process-diagram > ol { grid-template-columns: 1fr; }
+  .process-diagram > ol > li { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); gap: .375rem .75rem; }
+  .process-diagram > ol > li::before { grid-row: 1 / 3; margin: 0; }
+  .process-diagram li > span { grid-column: 2; margin: 0; }
+}
+@media print {
+  .process-diagram { break-inside: avoid; }
+  .process-diagram > ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
