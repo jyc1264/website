@@ -49,7 +49,7 @@ const isActive = (href: string) => href === "/" ? currentPath === "/" : currentP
       try {
         const saved = localStorage.getItem("portfolio-theme");
         document.documentElement.dataset.theme = saved === "dark" || saved === "light"
-          ? saved : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          ? saved : "light";
       } catch {
         document.documentElement.dataset.theme = "light";
       }
@@ -89,13 +89,12 @@ const isActive = (href: string) => href === "/" ? currentPath === "/" : currentP
     <script>
       const storageKey = "portfolio-theme";
       let sessionTheme: "dark" | "light" | null = null;
-      const systemTheme = matchMedia("(prefers-color-scheme: dark)");
       const savedTheme = () => {
         try { return localStorage.getItem(storageKey); } catch { return null; }
       };
       const currentTheme = () => {
         const saved = sessionTheme ?? savedTheme();
-        return saved === "dark" || saved === "light" ? saved : (systemTheme.matches ? "dark" : "light");
+        return saved === "dark" || saved === "light" ? saved : "light";
       };
       const syncTheme = () => {
         const theme = currentTheme();
@@ -126,7 +125,6 @@ const isActive = (href: string) => href === "/" ? currentPath === "/" : currentP
         event.newDocument.documentElement.dataset.theme = document.documentElement.dataset.theme || currentTheme();
       });
       document.addEventListener("astro:page-load", syncTheme);
-      systemTheme.addEventListener("change", () => { if (!sessionTheme && !savedTheme()) syncTheme(); });
       syncTheme();
     </script>
   </body>

@@ -12,7 +12,7 @@ The latest direction is a playful, career-first personal site for John Choi. The
 - Career tabs support click, arrow keys, Home/End, and native focus. Without JavaScript, all three entries are readable; print also includes all three. Motion only answers a selection and respects reduced motion.
 - Writing follows the career introduction as a personal reading list. The technical articles retain readable columns, padded outlines, keyboard-scrollable tables, original diagrams, and mathematical notation.
 - A stack of the owner's existing photographs adds a second small interaction: Another frame reveals the next image. Gallery photographs retain their natural proportions and their native direct-image fallback beneath the accessible dialog.
-- The palette has separate light and plum-dark appearances. Native links, readable contrast, generous target insets, mobile reflow, and no-JavaScript content access remain intact.
+- The palette has separate light and plum-dark appearances. New visitors start in light mode; an explicit saved appearance choice takes precedence. Native links, readable contrast, generous target insets, mobile reflow, and no-JavaScript content access remain intact.
 
 ## Content and code
 
