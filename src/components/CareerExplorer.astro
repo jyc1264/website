@@ -1,12 +1,6 @@
 ---
 import { milestones } from "../data/career";
 
-const chapterDefinitions = [
-  { item: milestones[2], id: "niantic", company: "Niantic", subject: "Games" },
-  { item: milestones[1], id: "payments", company: "Reddit", subject: "Payments" },
-  { item: milestones[0], id: "machine-learning", company: "Reddit", subject: "Machine learning" },
-];
-
 const compactPeriod = (period: string) => {
   const [start, end] = period.split(" - ");
   const startYear = start.match(/\d{4}/)?.[0] ?? start;
@@ -17,34 +11,40 @@ const compactPeriod = (period: string) => {
 
 <section id="experience" class="career-section" aria-label="Career">
   <p class="career-caption">My career, so far.</p>
-  <career-explorer data-default-chapter="machine-learning">
+  <career-explorer data-default-chapter={milestones[0]?.id}>
     <div class="career-tabs" data-career-tabs hidden>
-      {chapterDefinitions.map(({ item, id, company, subject }) => (
+      {milestones.map(({ id, shortCompany, subject, period }) => (
         <button type="button" class="career-tab" id={`career-tab-${id}`} data-career-tab={id}>
-          <span class="tab-company">{company}</span>
+          <span class="tab-company">{shortCompany}</span>
           <span class="tab-subject">{subject}</span>
-          <span class="tab-period">{compactPeriod(item.period)}</span>
+          <span class="tab-period">{compactPeriod(period)}</span>
         </button>
       ))}
     </div>
 
     <div class="career-pages">
-      {chapterDefinitions.map(({ item, id }) => (
-        <article class="career-page" id={`career-panel-${id}`} data-career-panel={id} aria-labelledby={`career-title-${id}`}>
+      {milestones.map((item) => (
+        <article class="career-page" id={`career-panel-${item.id}`} data-career-panel={item.id} aria-labelledby={`career-title-${item.id}`}>
           <header class="chapter-header">
             <div class="chapter-byline">
               <p class="chapter-company">{item.company}</p>
               <p class="chapter-period">{item.period}</p>
             </div>
-            <h2 id={`career-title-${id}`}>{item.role}</h2>
+            <h2 id={`career-title-${item.id}`}>{item.role}</h2>
           </header>
-          {Array.isArray(item.description) ? (
-            <ul class="chapter-achievements">
-              {item.description.map((description) => <li>{description}</li>)}
-            </ul>
-          ) : (
-            <p class="chapter-description">{item.description}</p>
-          )}
+          <ul class="chapter-achievements">
+            {item.achievements.map((achievement) => (
+              <li>
+                {achievement.text}
+                {achievement.reference && <span> (<a href={achievement.reference.href}>{achievement.reference.label}</a>).</span>}
+                {achievement.details && achievement.details.length > 0 && (
+                  <ul class="achievement-details">
+                    {achievement.details.map((detail) => <li>{detail}</li>)}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
           {item.focus && item.focus.length > 0 && (
             <ul class="chapter-focus" aria-label="Focus areas">
               {item.focus.map((focus) => <li>{focus}</li>)}
@@ -113,7 +113,7 @@ const compactPeriod = (period: string) => {
           }, { signal });
         });
         const requestedIndex = tabs.findIndex((tab) => tab.dataset.careerTab === this.dataset.defaultChapter);
-        selectChapter(requestedIndex < 0 ? tabs.length - 1 : requestedIndex);
+        selectChapter(requestedIndex < 0 ? 0 : requestedIndex);
         this.dataset.enhanced = "true";
         tablist.hidden = false;
       });
@@ -149,9 +149,10 @@ const compactPeriod = (period: string) => {
   .chapter-period { color: var(--muted); font-size: .75rem; line-height: 1.6; }
   .chapter-header h2 { max-width: 22ch; margin: .875rem 0 0; color: var(--text); font-family: var(--font-display); font-size: clamp(1.75rem, 2.8vw, 2.375rem); font-weight: 700; line-height: 1.08; letter-spacing: -.04em; }
   .chapter-achievements { display: grid; gap: .75rem; margin: 1.25rem 0 0; padding-left: 1.1rem; list-style: disc; }
-  .chapter-achievements li, .chapter-description { padding-left: .2rem; color: var(--text-2); font-size: .875rem; line-height: 1.7; }
+  .chapter-achievements li { padding-left: .2rem; color: var(--text-2); font-size: .875rem; line-height: 1.7; }
   .chapter-achievements li::marker { color: var(--accent); }
-  .chapter-description { margin-top: 1.25rem; padding-left: 0; }
+  .achievement-details { display: grid; gap: .5rem; margin: .625rem 0 0; padding-left: 1.1rem; list-style: circle; }
+  .chapter-achievements a { color: var(--accent); text-decoration: underline; text-underline-offset: .2em; overflow-wrap: anywhere; }
   .chapter-focus { display: flex; flex-wrap: wrap; gap: .4rem .6rem; margin: 1.375rem 0 0; padding: 0; list-style: none; }
   .chapter-focus li { border-bottom: 2px solid var(--line-strong); padding-bottom: .125rem; color: var(--muted); font-size: .6875rem; line-height: 1.5; }
   @media (hover: hover) { .career-tab:not([aria-selected="true"]):hover { background: var(--hover); border-color: var(--text); } }

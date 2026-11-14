@@ -1,0 +1,392 @@
+{
+  "checks": [
+    {
+      "name": "light 1440 newest-first order",
+      "passed": true,
+      "detail": [
+        "machine-learning",
+        "payments",
+        "niantic"
+      ]
+    },
+    {
+      "name": "light 1440 most recent selected initially",
+      "passed": true
+    },
+    {
+      "name": "light 1440 ML Infra chapter label",
+      "passed": true
+    },
+    {
+      "name": "light 1440 page fits viewport",
+      "passed": true
+    },
+    {
+      "name": "light 1440 payments has five main achievements",
+      "passed": true
+    },
+    {
+      "name": "light 1440 payments preserves three nested points",
+      "passed": true
+    },
+    {
+      "name": "light 1440 payments fits viewport",
+      "passed": true
+    },
+    {
+      "name": "light 1440 tab remains in first position",
+      "passed": true
+    },
+    {
+      "name": "light 390 newest-first order",
+      "passed": true,
+      "detail": [
+        "machine-learning",
+        "payments",
+        "niantic"
+      ]
+    },
+    {
+      "name": "light 390 most recent selected initially",
+      "passed": true
+    },
+    {
+      "name": "light 390 ML Infra chapter label",
+      "passed": true
+    },
+    {
+      "name": "light 390 page fits viewport",
+      "passed": true
+    },
+    {
+      "name": "light 390 payments has five main achievements",
+      "passed": true
+    },
+    {
+      "name": "light 390 payments preserves three nested points",
+      "passed": true
+    },
+    {
+      "name": "light 390 payments fits viewport",
+      "passed": true
+    },
+    {
+      "name": "light 390 tab remains in first position",
+      "passed": true
+    },
+    {
+      "name": "light 320 newest-first order",
+      "passed": true,
+      "detail": [
+        "machine-learning",
+        "payments",
+        "niantic"
+      ]
+    },
+    {
+      "name": "light 320 most recent selected initially",
+      "passed": true
+    },
+    {
+      "name": "light 320 ML Infra chapter label",
+      "passed": true
+    },
+    {
+      "name": "light 320 page fits viewport",
+      "passed": true
+    },
+    {
+      "name": "light 320 payments has five main achievements",
+      "passed": true
+    },
+    {
+      "name": "light 320 payments preserves three nested points",
+      "passed": true
+    },
+    {
+      "name": "light 320 payments fits viewport",
+      "passed": true
+    },
+    {
+      "name": "light 320 tab remains in first position",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 newest-first order",
+      "passed": true,
+      "detail": [
+        "machine-learning",
+        "payments",
+        "niantic"
+      ]
+    },
+    {
+      "name": "dark 1440 most recent selected initially",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 ML Infra chapter label",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 page fits viewport",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 payments has five main achievements",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 payments preserves three nested points",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 payments fits viewport",
+      "passed": true
+    },
+    {
+      "name": "dark 1440 tab remains in first position",
+      "passed": true
+    },
+    {
+      "name": "dark 390 newest-first order",
+      "passed": true,
+      "detail": [
+        "machine-learning",
+        "payments",
+        "niantic"
+      ]
+    },
+    {
+      "name": "dark 390 most recent selected initially",
+      "passed": true
+    },
+    {
+      "name": "dark 390 ML Infra chapter label",
+      "passed": true
+    },
+    {
+      "name": "dark 390 page fits viewport",
+      "passed": true
+    },
+    {
+      "name": "dark 390 payments has five main achievements",
+      "passed": true
+    },
+    {
+      "name": "dark 390 payments preserves three nested points",
+      "passed": true
+    },
+    {
+      "name": "dark 390 payments fits viewport",
+      "passed": true
+    },
+    {
+      "name": "dark 390 tab remains in first position",
+      "passed": true
+    },
+    {
+      "name": "dark 320 newest-first order",
+      "passed": true,
+      "detail": [
+        "machine-learning",
+        "payments",
+        "niantic"
+      ]
+    },
+    {
+      "name": "dark 320 most recent selected initially",
+      "passed": true
+    },
+    {
+      "name": "dark 320 ML Infra chapter label",
+      "passed": true
+    },
+    {
+      "name": "dark 320 page fits viewport",
+      "passed": true
+    },
+    {
+      "name": "dark 320 payments has five main achievements",
+      "passed": true
+    },
+    {
+      "name": "dark 320 payments preserves three nested points",
+      "passed": true
+    },
+    {
+      "name": "dark 320 payments fits viewport",
+      "passed": true
+    },
+    {
+      "name": "dark 320 tab remains in first position",
+      "passed": true
+    },
+    {
+      "name": "ML content ~1M+ DAU",
+      "passed": true
+    },
+    {
+      "name": "ML content ~10k qps",
+      "passed": true
+    },
+    {
+      "name": "ML content <50ms",
+      "passed": true
+    },
+    {
+      "name": "ML content 99.9% availability",
+      "passed": true
+    },
+    {
+      "name": "ML content Kubernetes controllers",
+      "passed": true
+    },
+    {
+      "name": "ML content Airflow",
+      "passed": true
+    },
+    {
+      "name": "ML content Kafka",
+      "passed": true
+    },
+    {
+      "name": "ML content Flink",
+      "passed": true
+    },
+    {
+      "name": "ML content Go Consumers",
+      "passed": true
+    },
+    {
+      "name": "ML content Platformized vector retrieval",
+      "passed": true
+    },
+    {
+      "name": "ML content from 90% to 99.99%",
+      "passed": true
+    },
+    {
+      "name": "ML content Gradient2",
+      "passed": true
+    },
+    {
+      "name": "ML content load-shedding",
+      "passed": true
+    },
+    {
+      "name": "Right moves from latest to payments",
+      "passed": true
+    },
+    {
+      "name": "Payments content $3 million",
+      "passed": true
+    },
+    {
+      "name": "Payments content 2024",
+      "passed": true
+    },
+    {
+      "name": "Payments content 65 currencies",
+      "passed": true
+    },
+    {
+      "name": "Payments content 30% lift",
+      "passed": true
+    },
+    {
+      "name": "Payments content 60 eligible payout countries",
+      "passed": true
+    },
+    {
+      "name": "Payments content 50+ different currencies",
+      "passed": true
+    },
+    {
+      "name": "Payments content bot, fraud, and money-laundering",
+      "passed": true
+    },
+    {
+      "name": "Payments content Reddit X",
+      "passed": true
+    },
+    {
+      "name": "Payments content Fifa, NFL, and F1",
+      "passed": true
+    },
+    {
+      "name": "Payments content millions of transactions",
+      "passed": true
+    },
+    {
+      "name": "Payments content over 40%",
+      "passed": true
+    },
+    {
+      "name": "Contributor Program links to supplied URL",
+      "passed": true
+    },
+    {
+      "name": "country expansion is nested under onboarding",
+      "passed": true
+    },
+    {
+      "name": "partnership/testing details stay under Reddit X",
+      "passed": true
+    },
+    {
+      "name": "End selects oldest chapter",
+      "passed": true
+    },
+    {
+      "name": "Home returns to newest chapter",
+      "passed": true
+    },
+    {
+      "name": "no-JS career order is newest-first",
+      "passed": true
+    },
+    {
+      "name": "no-JS exposes every career panel",
+      "passed": true
+    },
+    {
+      "name": "no-JS preserves nested Payments list",
+      "passed": true
+    }
+  ],
+  "accessibility": [
+    {
+      "state": "light 1440 payments",
+      "violations": []
+    },
+    {
+      "state": "light 390 payments",
+      "violations": []
+    },
+    {
+      "state": "light 320 payments",
+      "violations": []
+    },
+    {
+      "state": "dark 1440 payments",
+      "violations": []
+    },
+    {
+      "state": "dark 390 payments",
+      "violations": []
+    },
+    {
+      "state": "dark 320 payments",
+      "violations": []
+    }
+  ],
+  "errors": [],
+  "summary": {
+    "checks": 81,
+    "failed": 0,
+    "accessibilityStates": 6,
+    "accessibilityFindings": 0,
+    "pageErrors": 0
+  }
+}
