@@ -4,7 +4,9 @@ import { milestones } from "../data/career";
 const compactPeriod = (period: string) => {
   const [start, end] = period.split(" - ");
   const startYear = start.match(/\d{4}/)?.[0] ?? start;
-  const endYear = end === "Present" ? "now" : (end?.match(/\d{4}/)?.[0]?.slice(-2) ?? end);
+  const fullEndYear = end?.match(/\d{4}/)?.[0];
+  if (fullEndYear === startYear) return startYear;
+  const endYear = end === "Present" ? "now" : (fullEndYear?.slice(-2) ?? end);
   return `${startYear}–${endYear}`;
 };
 ---
@@ -130,8 +132,8 @@ const compactPeriod = (period: string) => {
 <style>
   .career-section { min-width: 0; scroll-margin-top: 7rem; }
   .career-caption { margin: 0 0 1rem; color: var(--text); font-family: var(--font-display); font-size: 1.125rem; font-weight: 600; line-height: 1.4; }
-  career-explorer { display: block; min-width: 0; }
-  .career-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .625rem; margin-bottom: 1.25rem; }
+  career-explorer { display: block; min-width: 0; container-type: inline-size; }
+  .career-tabs { display: grid; grid-auto-columns: minmax(0, 1fr); grid-auto-flow: column; gap: .625rem; margin-bottom: 1.25rem; }
   .career-tab { display: grid; grid-template-columns: 1fr auto; gap: .125rem .5rem; align-content: start; min-width: 0; min-height: 76px; border: 1.5px solid var(--line-strong); border-radius: .75rem .75rem .25rem .25rem; padding: .625rem var(--inset-compact); background: var(--surface-2); color: var(--text); text-align: left; transition: background-color .15s, border-color .15s; }
   .tab-company { font-family: var(--font-display); font-size: .9375rem; font-weight: 700; line-height: 1.4; }
   .tab-subject { grid-column: 1 / -1; grid-row: 2; font-size: .75rem; line-height: 1.4; }
@@ -170,6 +172,11 @@ const compactPeriod = (period: string) => {
     .chapter-achievements { gap: .875rem; }
     .chapter-achievements li { font-size: .875rem; }
     .chapter-focus { margin-top: 1.25rem; }
+  }
+  @container (max-width: 36rem) {
+    .career-tabs { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .career-tab { grid-template-columns: 1fr auto; min-height: 0; }
+    .tab-period { grid-column: 2; grid-row: 1; align-self: auto; }
   }
   @media (prefers-reduced-motion: reduce) { .career-tab { transition: none; } }
   @media print {

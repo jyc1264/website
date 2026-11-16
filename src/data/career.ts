@@ -46,7 +46,7 @@ export const milestones: CareerMilestone[] = [
     subject: "Payments",
     period: "Aug 2022 - Apr 2025",
     company: "Reddit, Inc.",
-    role: "Software Engineer III",
+    role: "Senior Software Engineer",
     achievements: [
       {
         text: "Created and managed payout delivery system that paid out our partners and affiliated creators on Reddit, seeing over $3 million in revenue in 2024.",
@@ -80,10 +80,31 @@ export const milestones: CareerMilestone[] = [
     company: "Niantic, Inc.",
     role: "Software Engineer",
     achievements: [
-      { text: "Rebuilt Pokemon Go quest and rewards flows, reducing high-traffic quest page load time by 25%." },
-      { text: "Shipped guest-account onboarding that improved post-launch player retention by 30%." },
-      { text: "Partnered with AR/R&D teams on Pokestop 3D scan uploads to support AR mapping platform development." },
+      { text: "Re-designed the PokémonGo quest system to where players are able to get daily/weekly rewards." },
+      { text: "Decreased high traffic quest page (50k rps) load time by 25%." },
+      {
+        text: "Coordinated with our research and development team to implement a new Augmented Reality feature where users are able to upload 3D scans of PokéStops. These scans are then used by our AR dev team to thinktank new feature ideas as well as hone our AR mapping platform.",
+      },
+      {
+        text: "Advocated for the prioritization of guest accounts in PokémonGo. Handled the design and engineering efforts, causing a 30% increase in player retention post-launch.",
+      },
     ],
     focus: ["GCS", "Unity Performance Tuning", "GeoSpatial Modeling"],
+  },
+  {
+    id: "aws",
+    shortCompany: "Amazon",
+    subject: "AWS",
+    period: "Sep 2020 - Dec 2020",
+    company: "Amazon Web Services, Inc.",
+    role: "Software Engineer Intern",
+    achievements: [
+      {
+        text: "Developed a new AWS notification stream resource that allows users to receive cross-regional resource-configuration-based notifications, ensuring enterprise-level compliance and security measures.",
+      },
+      { text: "Built out 3 high-volume customer-facing APIs to initialize and manipulate these new notification streams." },
+      { text: "Architected the backend using AWS DynamoDB, SQS, SNS, all of which were served on an ECS cluster." },
+    ],
+    focus: ["Notification Streams", "Customer-Facing APIs", "DynamoDB, SQS & SNS"],
   },
 ];
