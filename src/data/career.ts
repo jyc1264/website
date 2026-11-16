@@ -32,7 +32,7 @@ export const milestones: CareerMilestone[] = [
         text: "Operated and scaled distributed data infrastructure across Kubernetes-orchestrated services handling 1M+ DAU traffic. Automated life-cycle management via Kubernetes controllers, Airflow (data ingestion), Kafka (re-playability), Flink, and Go Consumers.",
       },
       {
-        text: "Platformized vector retrieval at Reddit, abstracting scaling and infrastructural complexity for internal engineering customer teams.",
+        text: "Platformized Reddit's vector retrieval behind a centralized query layer and internal SDK, orchestrating and validating queries across Milvus and SilverTorch for all vector search use cases.",
       },
       {
         text: "Improved availability of Reddit Search from 90% to 99.99%. Utilized Gradient2 concurrency limiting algorithm, client-side bulk fan-outs, and infrastructure configuration optimizations. Published testing library to fine-tune load-shedding configurations across Reddit.",
